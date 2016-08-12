@@ -6,7 +6,7 @@
 **/
 
 /**************************************************************
-Sección para creación de TABLAS															 
+Secciï¿½n para creaciï¿½n de TABLAS
 ***************************************************************/
 CREATE TABLE tbl_usuarios
 (
@@ -39,22 +39,28 @@ CREATE TABLE tbl_cursos
 WITH (
   OIDS=FALSE
 );
+CREATE TABLE tbl_tipopreguntas (
+    eva_idtipo seral,
+    eva_nombre varchar(32) NOT NULL,
+    eva_descripcion varchar(128) NOT NULL,
+    eva_estado boolean NOT NULL
+) WITHOUT OIDS;
 
 /**************************************************************
-Sección para creación de CONSTRAINT															 
+Secciï¿½n para creaciï¿½n de CONSTRAINT
 ***************************************************************/
 
 
 /**************************************************************
-Sección para creación de TRIGGERS															 
+Secciï¿½n para creaciï¿½n de TRIGGERS
 ***************************************************************/
 
 
 /**************************************************************
-Sección para creación de PRIVILEGIOS															 
+Secciï¿½n para creaciï¿½n de PRIVILEGIOS
 ***************************************************************/
 
 
 /**************************************************************
-Sección para creación de STORE PROCEDURE															 
+Secciï¿½n para creaciï¿½n de STORE PROCEDURE
 ***************************************************************/
