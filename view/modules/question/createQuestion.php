@@ -32,12 +32,12 @@
                     <fieldset>
                         <legend><i class="fa fa-angle-right"></i> Datos de la Pregunta</legend>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="materia">Materia <span class="text-danger">*</span></label>
+                            <label class="col-md-4 control-label" for="nameMateria">Materia <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control" name="nameMateria" id="idMateria">
                                         <option class="form-control" selected="" >Seleccione una materia</option>
-                                        
+
                                     </select>
                                     <span class="input-group-addon"><i class="fa fa-question"></i></span>
                                 </div>
@@ -52,7 +52,18 @@
                                 </div>
                             </div>
                         </div>
-                      
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Estado<span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <label class="radio-inline" for="example-inline-radio1">
+                                    <input type="radio" id="state" name="state" value="true"> activo
+                                </label>
+                                <label class="radio-inline" for="example-inline-radio2">
+                                    <input type="radio" id="estadoCurso" name="estadoCurso" value="false"> inactivo
+                                </label>
+                            </div>
+                        </div>
+
                     </fieldset>
 
                     <div class="form-group form-actions">

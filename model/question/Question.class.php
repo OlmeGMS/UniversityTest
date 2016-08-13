@@ -5,13 +5,21 @@ class Question
     private $CourseFk;
     private $typeQuestionFk;
     private $question;
+    private $materia;
     private $state;
     
     function __construct() {
         
     }
+    function getMateria() {
+        return $this->materia;
+    }
 
-    
+    function setMateria($materia) {
+        $this->materia = $materia;
+    }
+
+        
     function getIdQuestion() {
         return $this->idQuestion;
     }
