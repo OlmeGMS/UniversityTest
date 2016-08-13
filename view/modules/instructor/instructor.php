@@ -1,21 +1,31 @@
 <?php include '../../inc/config.php'; ?>
 <?php include '../../inc/template_start.php'; ?>
+<?php include '../../inc/page_head.php'; ?>
 
 <!-- Page content -->
                     <div id="page-content">
                         <!-- Dashboard 2 Header -->
                         <div class="content-header">
-                            <ul class="nav-horizontal text-center">
-                                <li class="active">
-                                    <a href="javascript:void(0)"><i class="fa fa-university"></i> Inicio</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="fa fa-pencil"></i> Examen</a>
-                                </li>
-                                <li>
-                                    <a href="../course/createCourse.php"><i class="fa fa-tasks"></i> Cursos</a>
-                                </li
-                            </ul>
+                          <ul class="nav-horizontal text-center">
+                            <li class="active">
+                                <a href="javascript:void(0)"><i class="fa fa-university"></i> Inicio</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"><i class="fa fa-book"></i> Crear Examen</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"><i class="fa fa-graduation-cap"></i> Calificación</a>
+                            </li>
+                            <li>
+                                <a href="../course/createCourse.php"><i class="fa fa-plus   "></i> Agregar Curso</a>
+                            </li>
+                            <li>
+                                <a href="../question/createQuestion.php"><i class="fa fa-question"></i> Agregar Pregunta al Banco</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"><i class="fa fa-folder-open-o"></i> Banco de Preguntas</a>
+                            </li>
+                        </ul>
                         </div>
                         <!-- END Dashboard 2 Header -->
 
@@ -52,7 +62,7 @@
                                 <div class="block full">
                                     <!-- Mini Sales Charts Title -->
                                     <div class="block-title">
-                                        
+
                                         <h2><strong><i class="fa fa-university"></i>University Test - </strong>Una nueva forma de Contestar Examenes </h2>
                                     </div>
                                     <!-- END Mini Sales Charts Title -->
@@ -65,13 +75,13 @@
                                 </div>
                                 <!-- END Mini Sales Charts Block -->
 
-                               
+
                                     <!-- END Mini Earnings Charts Content -->
                                 </div>
                                 <!-- END Mini Earnings Charts Block -->
 
-                                
-                            
+
+
                         </div>
                         <!-- END Dashboard 2 Content -->
                     </div>

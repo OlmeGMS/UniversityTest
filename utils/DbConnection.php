@@ -3,9 +3,9 @@
 class DbConnection
 {
     private static $dbHost = '127.0.0.1';
-    private static $dbName = 'php';
-    private static $dbUsername = 'admint3lj4wh';
-    private static $dbUserPassword = '4DiK55AU3qcn';
+    private static $dbName = 'evaluaciones';
+    private static $dbUsername = 'olme';
+    private static $dbUserPassword = 'root';
     private static $dbPort = '5432';
     private static $MyConnection = null;
 

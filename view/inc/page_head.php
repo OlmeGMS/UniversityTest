@@ -106,7 +106,7 @@
                             <button id="chat-talk-close-btn" class="btn btn-xs btn-default pull-right">
                                 <i class="fa fa-times"></i>
                             </button>
-                            <img src="../../img/placeholders/avatars/avatar5.jpg" alt="avatar" class="img-circle pull-left">
+                            <img src="../img/placeholders/avatars/interger-soft.jpg" alt="avatar" class="img-circle pull-left">
                             <strong>Olme</strong> Doe
                         </div>
                         <!-- END Chat Info -->
