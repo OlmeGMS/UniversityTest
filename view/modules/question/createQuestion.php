@@ -1,6 +1,7 @@
 <?php include '../../inc/config.php'; ?>
 <?php include '../../inc/template_start.php'; ?>
 <?php include '../../inc/page_head.php'; ?>
+<?php include '../../../services/subjectService.php'?>;
 <!-- Page content -->
 <div id="page-content">
     <!-- Validation Header -->
@@ -35,9 +36,12 @@
                             <label class="col-md-4 control-label" for="nameMateria">Materia <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control" name="nameMateria" id="idMateria">
+                                    <select class="form-control" name="idSubject" id="idSubject">
                                         <option class="form-control" selected="" >Seleccione una materia</option>
-
+                                        <?php
+                                            $options = new subjectService();
+                                            echo $options->getSubject();
+                                        ?>
                                     </select>
                                     <span class="input-group-addon"><i class="fa fa-question"></i></span>
                                 </div>
@@ -47,7 +51,7 @@
                             <label class="col-md-4 control-label" for="pregunta">Pregunta <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input type="text" id="pregunta" name="pregunta" class="form-control" placeholder="Digite su pregunta">
+                                    <input type="text" id="sentence" name="sentence" class="form-control" placeholder="Digite su pregunta">
                                     <span class="input-group-addon"><i class="fa fa-question"></i></span>
                                 </div>
                             </div>
@@ -103,7 +107,7 @@
             e.preventDefault();
             var data = $(this).serializeArray();
             $.ajax({
-                url: '../../../controller/courseController.php',
+                url: '../../../controller/questionController.php',
                 type: 'post',
                 dataType: 'html',
                 data: data,

@@ -1,14 +1,6 @@
 <?php
-/**
- * page_head.php
- *
- * Author: pixelcave
- *
- * Header and Sidebar of each page
- *
- */
+    session_start();
 ?>
-
 <!-- Page Wrapper -->
 <!-- In the PHP version you can set the following options from inc/config file -->
 <!--
@@ -142,7 +134,7 @@
                 <!-- Sidebar Content -->
                 <div class="sidebar-content">
                     <!-- Brand -->
-                    <a href="../../index.php" class="sidebar-brand">
+                    <a href="<?php echo $_SESSION["url"]; ?>" class="sidebar-brand">
                         <i class="fa fa-university"></i><span class="sidebar-nav-mini-hide"><strong>University</strong>Test</span>
                     </a>
                     <!-- END Brand -->
@@ -157,7 +149,7 @@
                         <div class="sidebar-user-name">Nombre..</div>
                         <div class="sidebar-user-links">
                           
-                            <a href="../../login.php" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
+                            <a href="<?php echo $_SESSION["DIR_CONTROLLERS"]."/logoutController.php"; ?>" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
                         </div>
                     </div>
                     <!-- END User Info -->

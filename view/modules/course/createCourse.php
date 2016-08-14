@@ -57,9 +57,6 @@
                                                                     <label class="radio-inline" for="example-inline-radio1">
                                                                         <input type="radio" id="state" name="state" value="true"> activo
                                                                     </label>
-                                                                    <label class="radio-inline" for="example-inline-radio2">
-                                                                        <input type="radio" id="estadoCurso" name="estadoCurso" value="false"> inactivo
-                                                                    </label>
                                                                 </div>
                                                             </div>
 

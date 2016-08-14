@@ -19,7 +19,7 @@ CREATE TABLE tbl_preguntas (
     eva_idPreguntasPk serial,
     eva_idCursoFk integer NOT NULL,
     eva_tipoPreguntaFk integer NOT NULL,
-    eva_pregunta varchar(256) NOT NULL,
+    eva_enunciado varchar(256) NOT NULL,
     eva_estado boolean
 ) WITHOUT OIDS;
 
@@ -61,7 +61,7 @@ CREATE TABLE tbl_cursos (
     eva_idCursoPk serial,
     eva_codigo integer NOT NULL,
     eva_nombre varchar(64) NOT NULL,
-    eva_fechaCreacion integer NOT NULL,
+    eva_fechaCreacion date,
     eva_usuarioFk integer NOT NULL,
     eva_estado boolean NOT NULL,
     eva_idMateriaFk integer NOT NULL
@@ -72,7 +72,7 @@ CREATE TABLE tbl_roles (
     eva_rol varchar(32) NOT NULL,
     eva_descripcion varchar(128) NOT NULL,
     eva_idusuariofk integer NOT NULL,
-    eva_estado boolean NOT NULL,
+    eva_estado boolean NOT NULL
 ) WITHOUT OIDS;
 
 CREATE TABLE tbl_rolpermiso (
@@ -253,3 +253,61 @@ Secci�n para creaci�n de STORE PROCEDURE
 /**************************************************************
 Secci�n para creaci�n de INSERT
 ***************************************************************/
+
+--permisos:
+
+INSERT INTO tbl_permisos(
+	eva_idPermisoPk, eva_permiso, eva_estado)
+	VALUES (1, 'escritura', true);
+	
+--usuario:
+
+INSERT INTO tbl_usuarios(
+	eva_documento, eva_pNombre, eva_sNombre, eva_pApellido, eva_sApellido, eva_usuario, eva_password, eva_idRolFk, eva_estado, eva_email)
+	VALUES (1030544919, 'olme', 'gustavo', 'marin', 'sanchez', 'olme_gms', '1234', 1, true, 'olme_gms@hotmail.com');
+	
+INSERT INTO tbl_usuarios(
+	eva_documento, eva_pNombre, eva_sNombre, eva_pApellido, eva_sApellido, eva_usuario, eva_password, eva_idRolFk, eva_estado, eva_email)
+	VALUES (80024471, 'Fredy', 'Oswaldo', 'Marin', 'Duarte', 'fomarin17', '1234', 1, true, 'fomarin17@misena.edu.co');
+
+--rol:
+
+INSERT INTO tbl_roles(
+	eva_idRol, eva_rol, eva_descripcion, eva_idusuariofk, eva_estado)
+	VALUES (1, 'instructor', 'docente de la institucion', 1, true);	
+
+--rolpermiso:
+
+INSERT INTO tbl_rolpermiso(
+	eva_idRolPermisoPk, eva_idRolFk, eva_idPermisoFk, eva_losPermisos)
+	VALUES (1, 1, 1, 1);
+
+-- materias:
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (1, 'ciencias', '2016-08-12', true);
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (2, 'sociales', '2016-08-12', true);
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (3, 'matematicas', '2016-08-12', true);
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (4, 'fisica', '2016-08-12', true);
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (5, 'quimica', '2016-08-12', true);
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (6, 'lengua castellana', '2016-08-12', true);
+
+INSERT INTO tbl_materia(
+	eva_idMateriaPk, eva_descripcion, eva_fecha, eva_estado)
+	VALUES (7, 'matematicas', '2016-08-12', true);
