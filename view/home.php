@@ -1,5 +1,9 @@
+<?php
+session_start();
+?>
 <?php include 'inc/config.php'; ?>
 <?php include 'inc/template_start_home.php'; ?>
+
 <!-- Page content -->
                     <div id="page-content">
                         <!-- Dashboard 2 Header -->

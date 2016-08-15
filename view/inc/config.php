@@ -84,15 +84,15 @@ $primary_nav = array(
             ),
             array(
                 'name'  => 'Agregar Curso',
-                'url'   => 'crear_curso.php'
+                'url'   => '../course/createCourse.php'
             ),
             array(
                 'name'  => 'Agregar Pregunta',
-                'url'   => '#'
+                'url'   => '../question/createQuestion.php'
             ),
             array(
                 'name'  => 'Banco de Preguntas',
-                'url'   => '#'
+                'url'   => '../question/bankQuestion.php'
             )
         )
     )

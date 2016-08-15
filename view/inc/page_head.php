@@ -1,14 +1,6 @@
 <?php
-/**
- * page_head.php
- *
- * Author: pixelcave
- *
- * Header and Sidebar of each page
- *
- */
+    session_start();
 ?>
-
 <!-- Page Wrapper -->
 <!-- In the PHP version you can set the following options from inc/config file -->
 <!--
@@ -97,7 +89,7 @@
                 <!-- Sidebar Content -->
                 <div class="sidebar-content">
                     <!-- Chat -->
-                    
+
 
                     <!-- Chat Talk -->
                     <div class="chat-talk display-none">
@@ -127,7 +119,7 @@
                         </form>
                         <!-- END Chat Input -->
                     </div>
-                    
+
                 </div>
                 <!-- END Sidebar Content -->
             </div>
@@ -142,7 +134,7 @@
                 <!-- Sidebar Content -->
                 <div class="sidebar-content">
                     <!-- Brand -->
-                    <a href="../../index.php" class="sidebar-brand">
+                    <a href="<?php echo $_SESSION["url"]; ?>" class="sidebar-brand">
                         <i class="fa fa-university"></i><span class="sidebar-nav-mini-hide"><strong>University</strong>Test</span>
                     </a>
                     <!-- END Brand -->
@@ -150,14 +142,14 @@
                     <!-- User Info -->
                     <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
                         <div class="sidebar-user-avatar">
-                            <a href="page_ready_user_profile.php">
-                                <img src="img/placeholders/avatars/interger-soft.png" alt="avatar">
+                            <a href="">
+                                <img src="../../img/placeholders/avatars/interger-soft.jpg" alt="avatar">
                             </a>
                         </div>
-                        <div class="sidebar-user-name">Nombre..</div>
+                        <div class="sidebar-user-name"><?php echo $_SESSION["USER"] ?></div>
                         <div class="sidebar-user-links">
-                          
-                            <a href="../../login.php" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
+
+                            <a href="<?php echo $_SESSION["DIR_CONTROLLERS"]."/logoutController.php"; ?>" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
                         </div>
                     </div>
                     <!-- END User Info -->
@@ -322,7 +314,7 @@
                     <!-- END Sidebar Navigation -->
                     <?php } ?>
 
-                    
+
                     <!-- END Sidebar Notifications -->
                 </div>
                 <!-- END Sidebar Content -->
@@ -391,8 +383,8 @@
 
                 <!-- Horizontal Menu + Search -->
                 <div id="horizontal-menu-collapse" class="collapse navbar-collapse">
-                   
-                   
+
+
                 </div>
                 <!-- END Horizontal Menu + Search -->
                 <?php } else { // Default Header Content  ?>
@@ -442,7 +434,7 @@
                 <!-- END Search Form -->
 
                 <!-- Right Header Navigation -->
-                
+
                 <!-- END Right Header Navigation -->
                 <?php } ?>
             </header>

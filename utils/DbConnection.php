@@ -3,7 +3,7 @@
 class DbConnection
 {
     private static $dbHost = '127.0.0.1';
-    private static $dbName = 'evaluaciones';
+    private static $dbName = 'php';
     private static $dbUsername = 'olme';
     private static $dbUserPassword = 'root';
     private static $dbPort = '5432';

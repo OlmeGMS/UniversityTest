@@ -1,5 +1,8 @@
 <?php include 'inc/config.php'; ?>
 <?php include 'inc/template_start_home.php'; ?>
+<?php
+session_start();
+?>
 
 <!-- Login Alternative Row -->
 <div class="container">
@@ -8,7 +11,8 @@
             <div id="login-alt-container">
                 <!-- Title -->
                 <h1 class="push-top-bottom">
-                    <i class="fa fa-university"></i> <strong><?php echo $template['name']; ?></strong><br>
+                    <a href="home.php">
+                    <i class="fa fa-university"></i> <strong><?php echo $template['name']; ?></strong><br></a>
                     <small>Bienvenidos a  <?php echo $template['name']; ?> </small>
                 </h1>
                 <!-- END Title -->

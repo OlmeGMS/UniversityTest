@@ -2,39 +2,31 @@
 class Question
 {
     private $idQuestion;
-    private $CourseFk;
+    private $idSubject;
     private $typeQuestionFk;
-    private $question;
-    private $materia;
+    private $sentence;
     private $state;
     
-    function __construct() {
-        
-    }
-    function getMateria() {
-        return $this->materia;
-    }
-
-    function setMateria($materia) {
-        $this->materia = $materia;
+    function __construct($idQuestion, $idSubject, $typeQuestionFk, $sentence, $state) {
+        $this->idQuestion = $idQuestion;
+        $this->idSubject = $idSubject;
+        $this->typeQuestionFk = $typeQuestionFk;
+        $this->sentence = $sentence;
+        $this->state = $state;
     }
 
-        
-    function getIdQuestion() {
+        function getIdQuestion() {
         return $this->idQuestion;
     }
 
-    function getCourseFk() {
-        return $this->CourseFk;
+    function getIdSubject() {
+        return $this->idSubject;
     }
 
     function getTypeQuestionFk() {
         return $this->typeQuestionFk;
     }
 
-    function getQuestion() {
-        return $this->question;
-    }
 
     function getState() {
         return $this->state;
@@ -44,23 +36,33 @@ class Question
         $this->idQuestion = $idQuestion;
     }
 
-    function setCourseFk($CourseFk) {
-        $this->CourseFk = $CourseFk;
+    function setIdSubject($idSubject) {
+        $this->idSubject = $idSubject;
     }
 
     function setTypeQuestionFk($typeQuestionFk) {
         $this->typeQuestionFk = $typeQuestionFk;
     }
 
-    function setQuestion($question) {
-        $this->question = $question;
-    }
-
     function setState($state) {
         $this->state = $state;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSentence()
+    {
+        return $this->sentence;
+    }
 
+    /**
+     * @param mixed $sentence
+     */
+    public function setSentence($sentence)
+    {
+        $this->sentence = $sentence;
+    }
     
 }
 ?>
