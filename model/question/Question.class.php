@@ -15,7 +15,7 @@ class Question
         $this->state = $state;
     }
 
-        function getIdQuestion() {
+    function getIdQuestion() {
         return $this->idQuestion;
     }
 
@@ -26,8 +26,6 @@ class Question
     function getTypeQuestionFk() {
         return $this->typeQuestionFk;
     }
-
-
     function getState() {
         return $this->state;
     }

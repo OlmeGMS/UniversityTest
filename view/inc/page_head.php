@@ -148,7 +148,6 @@
                         </div>
                         <div class="sidebar-user-name"><?php echo $_SESSION["USER"] ?></div>
                         <div class="sidebar-user-links">
-
                             <a href="<?php echo $_SESSION["DIR_CONTROLLERS"]."/logoutController.php"; ?>" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
                         </div>
                     </div>
