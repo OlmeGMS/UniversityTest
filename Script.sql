@@ -17,7 +17,7 @@ CREATE TABLE tbl_tipopreguntas (
 
 CREATE TABLE tbl_preguntas (
     eva_idPreguntasPk serial,
-    eva_idCursoFk integer NOT NULL,
+    eva_idmateriapk integer NOT NULL,
     eva_tipoPreguntaFk integer NOT NULL,
     eva_enunciado varchar(256) NOT NULL,
     eva_estado boolean
