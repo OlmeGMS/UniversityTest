@@ -1,4 +1,4 @@
-/**
+﻿/**
 		Script de base de datos
 		UniversityTest
 		SENA-ADSI
@@ -9,7 +9,7 @@
 Secci�n para creaci�n de TABLAS
 ***************************************************************/
 CREATE TABLE tbl_tipopreguntas (
-    eva_idtipo seral,
+    eva_idtipo serial,
     eva_nombre varchar(32) NOT NULL,
     eva_descripcion varchar(128) NOT NULL,
     eva_estado boolean NOT NULL
@@ -139,6 +139,7 @@ CREATE TABLE tbl_tipNotificacion (
 Secci�n para creaci�n de CONSTRAINT
 ***************************************************************/
 
+/**************************************************************
 ALTER TABLE ONLY tbl_tipopreguntas
     ADD CONSTRAINT tbl_tipopreguntas_pkey PRIMARY KEY (eva_idtipo);
 
@@ -235,7 +236,7 @@ ALTER TABLE ONLY tbl_tipNotificacion
 ALTER TABLE ONLY tbl_notificaciones
     ADD CONSTRAINT Foreign_key03 FOREIGN KEY ("eva_idTipoNotifFk") REFERENCES "tbl_tipNotificacion"("eva_idTipoNof");
 SET search_path = pg_catalog, pg_catalog;
-COMMENT ON SCHEMA public IS 'standard public schema';
+COMMENT ON SCHEMA public IS 'standard public schema';***************************************************************/
 
 /**************************************************************
 Secci�n para creaci�n de TRIGGERS
@@ -266,6 +267,10 @@ INSERT INTO tbl_permisos(
 INSERT INTO tbl_usuarios(
 	eva_documento, eva_pNombre, eva_sNombre, eva_pApellido, eva_sApellido, eva_usuario, eva_password, eva_idRolFk, eva_estado, eva_email)
 	VALUES (1030544919, 'olme', 'gustavo', 'marin', 'sanchez', 'olme_gms', '1234', 1, true, 'olme_gms@hotmail.com');
+	
+	INSERT INTO tbl_usuarios(
+	eva_documento, eva_pNombre, eva_sNombre, eva_pApellido, eva_sApellido, eva_usuario, eva_password, eva_idRolFk, eva_estado, eva_email)
+	VALUES (1069731878, 'Luz', 'Angela', 'Moreno', 'Parga', 'luz_amp', '1234', 1, true, 'lamoreno87@misena.edu.co');
 	
 INSERT INTO tbl_usuarios(
 	eva_documento, eva_pNombre, eva_sNombre, eva_pApellido, eva_sApellido, eva_usuario, eva_password, eva_idRolFk, eva_estado, eva_email)
