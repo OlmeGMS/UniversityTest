@@ -139,45 +139,45 @@ var Login = function() {
                     }
                 },
                 rules: {
-                    'register-firstname': {
+                    'registerFirstname': {
                         required: true,
                         minlength: 2
                     },
-                    'register-lastname': {
+                    'registerLastname': {
                         required: true,
                         minlength: 2
                     },
-                    'register-email': {
+                    'registerEmail': {
                         required: true,
                         email: true
                     },
-                    'register-password': {
+                    'registerPassword': {
                         required: true,
                         minlength: 5
                     },
-                    'register-password-verify': {
+                    'registerPasswordVerify': {
                         required: true,
-                        equalTo: '#register-password'
+                        equalTo: '#registerPassword'
                     },
                     'register-terms': {
                         required: true
                     }
                 },
                 messages: {
-                    'register-firstname': {
+                    'registerFirstname': {
                         required: 'Please enter your firstname',
                         minlength: 'Please enter your firstname'
                     },
-                    'register-lastname': {
+                    'registerLastname': {
                         required: 'Please enter your lastname',
                         minlength: 'Please enter your lastname'
                     },
-                    'register-email': 'Please enter a valid email address',
-                    'register-password': {
+                    'registerEmail': 'Please enter a valid email address',
+                    'registerPassword': {
                         required: 'Please provide a password',
                         minlength: 'Your password must be at least 5 characters long'
                     },
-                    'register-password-verify': {
+                    'registerPasswordVerify': {
                         required: 'Please provide a password',
                         minlength: 'Your password must be at least 5 characters long',
                         equalTo: 'Please enter the same password as above'

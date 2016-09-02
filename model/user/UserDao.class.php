@@ -14,9 +14,46 @@ class UserDao implements IUserDao
         $this->conn = DbConnection::connect();
     }
 
-    public function login($user, $password)
+    public function getUser(User $user)
     {
-        $sql = "SELECT eva_usuario, eva_password FROM tbl_usuarios WHERE eva_usuario = '$user'  AND eva_password = '$password'";
+        $sql = "SELECT eva_usuario, eva_password,eva_documento, eva_pnombre, eva_snombre, eva_papellido, eva_sapellido,
+                 eva_idrolfk, eva_estado, eva_email FROM tbl_usuarios WHERE eva_usuario = '".$user->getUser()."'";
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row) {
+                    $user = new User(
+                        $row->eva_usuario,
+                        $row->eva_password,
+                        $row->eva_documento,
+                        $row->eva_pnombre,
+                        $row->eva_snombre,
+                        $row->eva_papellido,
+                        $row->eva_sapellido,
+                        $row->eva_idrolfk,
+                        $row->eva_estado,
+                        $row->eva_email
+                    );
+                    break;
+                }
+            }else{
+                $user = null;
+            }
+        }
+        catch (PDOException $e) {
+            $user = null;
+        }
+        finally{
+            DbConnection::disconnect();
+        }
+        return $user;
+    }
+
+
+    public function login(User $user)
+    {
+        $sql = "SELECT eva_usuario, eva_password FROM tbl_usuarios WHERE eva_usuario = '".$user->getUser()."' AND eva_password = '".$user->getPassword()."'";
         try {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
@@ -63,14 +100,24 @@ class UserDao implements IUserDao
     public function insertUser(User $user)
     {
         $result = 0; //marcador para el resultado de la acción
-        $query = 'INSERT INTO tbl_usuarios (iduser, nombres) VALUES(?,?)';
+        $query = 'INSERT INTO tbl_usuarios (eva_documento, eva_pnombre, eva_snombre, eva_papellido, 
+            eva_sapellido, eva_usuario, eva_password, eva_idrolfk, eva_estado, 
+            eva_email) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         try {
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $user->getUser(), PDO::PARAM_INT);
-            $stmt->bindParam(2, $user->getPassword(), PDO::PARAM_STR);
+            $stmt->bindParam(1, $user->getDocument(), PDO::PARAM_INT);
+            $stmt->bindParam(2, $user->getFirstName(), PDO::PARAM_STR);
+            $stmt->bindParam(3, $user->getSecondName(), PDO::PARAM_STR);
+            $stmt->bindParam(4, $user->getFirstLastName(), PDO::PARAM_STR);
+            $stmt->bindParam(5, $user->getSecondLastName(), PDO::PARAM_STR);
+            $stmt->bindParam(6, $user->getUser(), PDO::PARAM_STR);
+            $stmt->bindParam(7, $user->getPassword(), PDO::PARAM_STR);
+            $stmt->bindParam(8, $user->getIdRol(), PDO::PARAM_STR);
+            $stmt->bindParam(9, $user->getState(), PDO::PARAM_STR);
+            $stmt->bindParam(10, $user->getEmail(), PDO::PARAM_STR);
             $stmt->execute();
             if ($stmt->rowCount() != 0) {
-                $result = 'Registro guardado exitosamente';
+                $result = true;
             } else {
                 $result = 'No se pudo guardar el registro. Consulte al administrador';
             }
