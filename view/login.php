@@ -259,12 +259,11 @@ session_start();
                             $("#btn-message").trigger("click");
 
                         }else{
-                            if (data.response == null){
                             $('#submitRegister').removeProp("disabled");
+                            $('#response-message').text(data.message);
                             document.getElementById("form-register").reset();
-                            $('#response-message').text("El curso fue creado correctamente");
                             $("#btn-message").trigger("click");
-                            }
+
                         }
                     }
                 })

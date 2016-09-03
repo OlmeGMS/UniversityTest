@@ -42,7 +42,7 @@ class UserFacade
                 } else {
                     $json = array("response" => true, "message" => "El usuario se registro correctamente");
                 }
-                return true;
+
             } else {
                 $json = array("response" => false, "message" => "Error al registrar el usuario");
             }
