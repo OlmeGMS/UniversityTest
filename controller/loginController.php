@@ -5,10 +5,11 @@ require ('UserFacade.php');
 
 
 $_SESSION['DIR_CONTROLLERS'] = dirname($_SERVER['PHP_SELF']);
-
 if(isset( $_SESSION["login"]) && $_SESSION["login"] == "valid"){
     header("Location: ../view/modules/instructor/instructor.php");
 }else{
+        $_SESSION["login"] = "valid";
+        $_SESSION['USER'] = $_POST["user"];
     if($_GET['register'] == true) {
         $userFacade = new UserFacade();
         $userFacade->registerUser();
