@@ -111,7 +111,7 @@ session_start();
                             <div class="col-xs-12">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-send-o"></i></span>
-                                    <input type="text" id="registerDocument" name="registerDocument" class="form-control input-lg" placeholder="Documento" value="a">
+                                    <input type="text" id="registerDocument" name="registerDocument" class="form-control input-lg" placeholder="Documento">
                                 </div>
                             </div>
                         </div>
@@ -119,37 +119,29 @@ session_start();
                             <div class="col-xs-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                                    <input type="text" id="registerFirstName" name="registerFirstName" class="form-control input-lg" placeholder="Primer Nombre" value="a">
+                                    <input type="text" id="registerFirstName" name="registerFirstName" class="form-control input-lg" placeholder="Primer Nombre">
                                 </div>
                             </div>
                             <div class="col-xs-6">
-                                <input type="text" id="registerSecondName" name="registerSecondName" class="form-control input-lg" placeholder="Segundo Nombre" value="a">
+                                <input type="text" id="registerSecondName" name="registerSecondName" class="form-control input-lg" placeholder="Segundo Nombre">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                                    <input type="text" id="registerFirstLastName" name="registerFirstLastName" class="form-control input-lg" placeholder="Primer Apellido" value="a">
+                                    <input type="text" id="registerFirstLastName" name="registerFirstLastName" class="form-control input-lg" placeholder="Primer Apellido">
                                 </div>
                             </div>
                             <div class="col-xs-6">
-                                <input type="text" id="registerSecondLastName" name="registerSecondLastName" class="form-control input-lg" placeholder="Segundo Apellido" value="a">
+                                <input type="text" id="registerSecondLastName" name="registerSecondLastName" class="form-control input-lg" placeholder="Segundo Apellido">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="gi gi-user"></i></span>
-                                    <input type="text" id="registerUser" name="registerUser" class="form-control input-lg" placeholder="Usuario" value="a">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
-                                    <input type="password" id="registerPassword" name="registerPassword" class="form-control input-lg" placeholder="Password" value="12345">
+                                    <input type="text" id="registerUser" name="registerUser" class="form-control input-lg" placeholder="Usuario">
                                 </div>
                             </div>
                         </div>
@@ -157,7 +149,15 @@ session_start();
                             <div class="col-xs-12">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
-                                    <input type="password" id="registerPasswordVerify" name="registerPasswordVerify" class="form-control input-lg" placeholder="Verificar Password" value="12345">
+                                    <input type="password" id="registerPassword" name="registerPassword" class="form-control input-lg" placeholder="Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                                    <input type="password" id="registerPasswordVerify" name="registerPasswordVerify" class="form-control input-lg" placeholder="Verificar Password">
                                 </div>
                             </div>
                         </div>
@@ -253,17 +253,16 @@ session_start();
                     dataType: 'json',
                     data: data,
                     success: function(data) {
-                        if(data.response != "true") {
+                        if(data.response != true) {
                             $('#submitRegister').removeProp("disabled");
                             $('#response-message').text(data.message);
                             $("#btn-message").trigger("click");
-
                         }else{
                             $('#submitRegister').removeProp("disabled");
                             $('#response-message').text(data.message);
-                            document.getElementById("form-register").reset();
                             $("#btn-message").trigger("click");
-
+                            document.getElementById("form-register").reset();
+                            $('#submitRegister').text("Registrar Cuenta");
                         }
                     }
                 })
