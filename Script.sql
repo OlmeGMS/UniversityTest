@@ -94,13 +94,13 @@ CREATE TABLE tbl_respuestaseva (
 ) WITHOUT OIDS;
 -- Structure for table tbl_evaluaciones (OID = 24623):
 CREATE TABLE tbl_evaluaciones (
-    "eva_idEvaluacionPk" integer NOT NULL,
-    "eva_codCursoFk" integer NOT NULL,
-    "eva_fechaRegistro" date NOT NULL,
-    "eva_idUsuarioFk" integer NOT NULL,
+    eva_idEvaluacionPk serial NOT NULL,
+    eva_codCursoFk integer NOT NULL,
+	eva_idUsuarioFk integer NOT NULL,
+    eva_fechaRegistro date NOT NULL,
     eva_fechainicial date NOT NULL,
-    "eva_fechaFinal" date NOT NULL,
-    "eva_canPreguntas" integer NOT NULL,
+    eva_fechaFinal date NOT NULL,
+    eva_canPreguntas integer NOT NULL,
     eva_estado boolean NOT NULL
 ) WITHOUT OIDS;
 -- Structure for table tbl_asignacion (OID = 24626):

@@ -36,7 +36,7 @@ class UserFacade
             if ($this->userDao->insertUser($this->user)) {
                 $result = $this->emailServiceImp->sendEmail($this->user->getEmail(),
                     $this->user->getFirstName() . " " . $this->user->getSecondName() . " " . $this->user->getFirstLastName() . " " . $this->user->getSecondLastName(),
-                    "Subject", "Message");
+                    "Este es el tema", "Este es el Mensaje");
                 if ($result != true) {
                     $json = array("response" => true, "message" => "Usuario registrado. !no se puedo enviar correo¡");
                 } else {
