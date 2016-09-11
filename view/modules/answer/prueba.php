@@ -53,11 +53,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Respuestas</h4>
                 </div>
-                <form role="form" action="" name="frmrespuesta" onsubmit="createAnswer(); return false">
+                <form role="form" action="" name="frmRespuesta" onsubmit="createAnswer(); return false">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <label for="pregunta"></label>
-                            <input id="pregunta" name="pregunta" class="form-control" value="<?php echo $options->getPregunta();?>" required>
+                            <label for="pregunta">Pregunta</label>
+                            <input id="pregunta" name="pregunta" class="form-control" required>
                         </div>
 
                         <div class="form-group">
@@ -94,7 +94,6 @@
 <?php include '../../inc/page_footer.php'; ?>
 <?php include '../../inc/template_scripts.php'; ?>
 <!-- Load and execute javascript code used only in this page -->
-<script src="../../js/ajaxUniversity.js"></script>
 <script src="../../js/ajaxUt.js"></script>
 <script type="text/javascript">
     function Modal() {

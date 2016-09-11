@@ -59,8 +59,8 @@ class QuestionDao implements IQuestionDao
     
     public function getOne(Question $question){
         
-        $sql ='SELECT "eva_idPreguntasPk", "eva_idCursoFk", "eva_tipoPreguntaFk", eva_pregunta, eva_estado
-	      FROM public.tbl_preguntas WHERE eva_idPregunta="'.$question->getIdQuestion()."'OR eva_pregunta ='".$question->getQuestion()."'";
+        $sql ="SELECT eva_idPreguntasPk, eva_idCursoFk, eva_tipoPreguntaFk, eva_pregunta, eva_estado FROM public.tbl_preguntas WHERE eva_idPregunta='".$question->getIdQuestion()."'OR eva_pregunta ='".$question->getQuestion()."'";
+
         
         try {
             $stm = $this->conn->prepare($sql);
