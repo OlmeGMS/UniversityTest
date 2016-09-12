@@ -7,22 +7,19 @@
  */
 
 require_once ('../model/answer/AnswerDao.php');
+require_once ('AnswerFacade.php');
 
 session_start();
-$answer = new Answer();
-$answer->setIdQuestionFk($_POST['pregunta']);
-$answer->setTypeAnswer(1);
-$answer->setAnswer($_POST['respuesta']);
-$answer->setState($_POST['rEstado']);
-
-$answerDao = new AnswerDao();
-$validator = true;
-
-if($validator){
-    if($answerDao->insertAnswer($answer)){
-        echo true;
-    }else{
-        echo false;
-    }
-    echo false;
+if(isset($_GET['idQuestion'])) {
+    $idQuestion = $_GET['idQuestion'];
+    $answerFacade = new AnswerFacade();
+    $listAnswer = array();
+    $listAnswer[] = $_POST['r1'];
+    $listAnswer[] = $_POST['r2'];
+    $listAnswer[] = $_POST['r3'];
+    $listAnswer[] = $_POST['r4'];
+    $listAnswer[] = $_POST['r5'];
+    unset($_POST);
+    unset($_GET['idQuestion']);
+    $answerFacade->createAnswers($listAnswer, $idQuestion);
 }

@@ -1,7 +1,7 @@
 <?php include '../../inc/config.php'; ?>
 <?php include '../../inc/template_start.php'; ?>
 <?php include '../../inc/page_head.php'; ?>
-<?php include '../../../services/questionService.php' ?>;
+<?php include '../../../services/QuestionService.php' ?>;
 <!-- Page content -->
 <div id="page-content" xmlns="http://www.w3.org/1999/html">
     <!-- Table Responsive Header -->

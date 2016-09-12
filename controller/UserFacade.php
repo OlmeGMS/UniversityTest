@@ -25,10 +25,10 @@ class UserFacade
             $_POST['registerDocument'],$_POST['registerFirstName'],$_POST['registerSecondName'],$_POST['registerFirstLastName'],$_POST['registerSecondLastName'],
             $_POST['registerRol'],true,$_POST['registerEmail']
         );
-
         $this->userDao = new UserDao();
         $this->emailServiceImp = new EmailServiceImp();
     }
+
     public function registerUser(){
         if($this->userDao->getUser($this->user) != null){
             $json = array("response" => false, "message" => "El usuario ya existe");
@@ -49,6 +49,5 @@ class UserFacade
         }
         echo json_encode($json);
     }
-
 }
 ?>

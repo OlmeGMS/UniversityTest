@@ -87,6 +87,10 @@ $primary_nav = array(
                 'url'   => '../course/createCourse.php'
             ),
             array(
+                'name'  => 'Agregar Evaluación',
+                'url'   => '../evaluation/CreateEvaluation.php'
+            ),
+            array(
                 'name'  => 'Agregar Pregunta',
                 'url'   => '../question/createQuestion.php'
             ),

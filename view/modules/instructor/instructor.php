@@ -11,7 +11,7 @@
                                 <a href="javascript:void(0)"><i class="fa fa-university"></i> Inicio</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)"><i class="fa fa-book"></i> Crear Examen</a>
+                                <a href="../evaluation/createEvaluation.php"><i class="fa fa-book"></i> Crear evaluación</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)"><i class="fa fa-graduation-cap"></i> Calificación</a>

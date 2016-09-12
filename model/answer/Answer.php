@@ -14,21 +14,8 @@ class Answer
     private $typeAnswer;
     private $state;
 
-    /**
-     * Answer constructor.
-     * @param $idAnswer
-     * @param $idQuestionFk
-     * @param $answer
-     * @param $typeAnswer
-     * @param $state
-     */
-    public function __construct($idAnswer, $idQuestionFk, $answer, $typeAnswer, $state)
+    public function __construct()
     {
-        $this->idAnswer = $idAnswer;
-        $this->idQuestionFk = $idQuestionFk;
-        $this->answer = $answer;
-        $this->typeAnswer = $typeAnswer;
-        $this->state = $state;
     }
 
     /**

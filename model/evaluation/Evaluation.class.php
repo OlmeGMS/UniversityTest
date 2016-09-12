@@ -3,15 +3,18 @@
 class Evaluation
 {
     private $id;
-    private $idCurse;
-    private $idUser;
     private $registerDate;
     private $initialDate;
     private $endDate;
     private $state;
+    private $user;
+    private $subject;
+    private $listQuestions;
 
     public function __construct()
     {
+        $this->user = new User();
+        $this->subject = new Subject();
     }
 
     /**
@@ -28,38 +31,6 @@ class Evaluation
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdCurse()
-    {
-        return $this->idCurse;
-    }
-
-    /**
-     * @param mixed $idCurse
-     */
-    public function setIdCurse($idCurse)
-    {
-        $this->idCurse = $idCurse;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
-
-    /**
-     * @param mixed $idUser
-     */
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
     }
 
     /**
@@ -113,22 +84,6 @@ class Evaluation
     /**
      * @return mixed
      */
-    public function getQuantityQuestions()
-    {
-        return $this->quantityQuestions;
-    }
-
-    /**
-     * @param mixed $quantityQuestions
-     */
-    public function setQuantityQuestions($quantityQuestions)
-    {
-        $this->quantityQuestions = $quantityQuestions;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getState()
     {
         return $this->state;
@@ -142,6 +97,53 @@ class Evaluation
         $this->state = $state;
     }
 
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return Subject
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @param Subject $subject
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getListQuestions()
+    {
+        return $this->listQuestions;
+    }
+
+    /**
+     * @param mixed $listQuestions
+     */
+    public function setListQuestions($listQuestions)
+    {
+        $this->listQuestions = $listQuestions;
+    }
 
 
 }

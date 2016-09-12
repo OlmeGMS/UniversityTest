@@ -62,9 +62,6 @@
                                 <label class="radio-inline" for="example-inline-radio1">
                                     <input type="radio" id="state" name="state" value="true"> activo
                                 </label>
-                                <label class="radio-inline" for="example-inline-radio2">
-                                    <input type="radio" id="estadoCurso" name="estadoCurso" value="false"> inactivo
-                                </label>
                             </div>
                         </div>
 
@@ -97,10 +94,10 @@
 
 <script>$(function () {
         FormsValidation.init();
-    });</script>
+    });
+</script>
 <script>
     $(document).ready(function () {
-
         $('#form-generic').submit(function (e) {
             $('#submit').text("Enviando datos...");
             $('#submit').prop("disabled", true);

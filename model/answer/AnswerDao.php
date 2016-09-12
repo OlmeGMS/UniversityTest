@@ -9,16 +9,12 @@
 
 require_once ('AnswerDao.php');
 require_once ('IAnswerDao.php');
-require_once ('../../utils/DbConnection.php');
+require_once ('../utils/DbConnection.php');
 
 class AnswerDao implements IAnswerDao
 {
     private $conn = null;
 
-    /**
-     * AnswerDao constructor.
-     * @param null $conn
-     */
     public function __construct()
     {
        $this->conn = DbConnection::connect();
@@ -51,33 +47,24 @@ class AnswerDao implements IAnswerDao
 
     public function insertAnswer(Answer $answer)
     {
-        $query = 'INSERT INTO public.tbl_respuestas(
-	              eva_idrespuestapk, eva_idpreguntafk, eva_respuesta, eva_tiporespuestafk, eva_estado)
-	              VALUES (?, ?, ?, ?, ?);';
-
         try{
-
+            $query = 'INSERT INTO public.tbl_respuestas(eva_idpreguntafk, eva_respuesta, eva_tiporespuestafk, eva_estado) VALUES (?, ?, ?, ?)';
             $stm = $this->conn->prepare($query);
-            $stm->bindParam(1, $answer->getIdAnswer(), PDO::PARAM_INT);
-            $stm->bindParam(2, $answer->getIdQuestionFk(), PDO::PARAM_INT);
-            $stm->bindParam(3, $answer->getAnswer(), PDO::PARAM_STR);
-            $stm->bindParam(4, $answer->getTypeAnswer(), PDO::PARAM_INT);
-            $stm->bindParam(5, $answer->getState(), PDO::PARAM_BOOL);
-
+            $stm->bindParam(1, $answer->getIdQuestionFk(), PDO::PARAM_INT);
+            $stm->bindParam(2, $answer->getAnswer(), PDO::PARAM_STR);
+            $stm->bindParam(3, $answer->getTypeAnswer(), PDO::PARAM_INT);
+            $stm->bindParam(4, $answer->getState(), PDO::PARAM_BOOL);
             $stm->execute();
 
             if ($stm->rowCount() > 0){
-                return false;
+                return true;
             } else{
-                return true;
+                return false;
             }
-
         }catch (PDOException $e){
-                return true;
+                return false;
         }finally{
-
             DbConnection::disconnect();
-
         }
     }
 

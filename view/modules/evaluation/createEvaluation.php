@@ -1,16 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: olmemarin
- * Date: 7/09/16
- * Time: 4:13 PM
- */
-
-      include '../../inc/config.php'; ?>
+<?php include '../../inc/config.php'; ?>
 <?php include '../../inc/template_start.php'; ?>
 <?php include '../../inc/page_head.php'; ?>
-<?php include '../../../services/QuestionService.php' ?>
-<?php  $options = new questionService(); ?>
+<?php include '../../../services/subjectService.php'?>;
 
 <!-- Page content -->
 <div id="page-content">
@@ -18,13 +9,13 @@
     <div class="content-header">
         <div class="header-section">
             <h1>
-                <i class="fa fa-check-square-o"></i>Agregar Respuesta <br><small>en este formulario usted puede agregar la respuestas a una pregunta</small>
+                <i class="fa fa-plus"></i>Crear Nueva Evaluación<br><small>A continuación usted podrá crear evaluaciones manuales o automaticas</small>
             </h1>
         </div>
     </div>
     <ul class="breadcrumb breadcrumb-top">
         <li>Instructor</li>
-        <li><a href="../instructor/instructor.php">crear Respuesta</a></li>
+        <li><a href="">crear evaluación</a></li>
     </ul>
     <!-- END Validation Header -->
 
@@ -34,50 +25,47 @@
             <div class="block">
                 <!-- Form Validation Example Title -->
                 <div class="block-title">
-                    <h2><strong>Crear Respuesta</strong></h2>
+                    <h2><strong>Crear evaluación</strong> Curso</h2>
                 </div>
                 <!-- END Form Validation Example Title -->
 
                 <!-- Form Validation Example Content -->
                 <form id="form-generic" class="form-horizontal form-bordered">
                     <fieldset>
-                        <legend><i class="fa fa-angle-right"></i> Datos de la Respuesta</legend>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="sentence">Pregunta <span class="text-danger">*</span></label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input type="text"  name="sentence" class="form-control" id=" <?php $options->getId(); ?>" placeholder="<?php $options->getPregunta() ?>" disabled>
-                                    <span class="input-group-addon"><i class="fa fa-question"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="respuesta">Respuesta <span class="text-danger">*</span></label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input type="text" id="respuesta" name="respuesta" class="form-control" >
-                                    <span class="input-group-addon"><i class="fa fa-question"></i></span>
-                                </div>
-                            </div>
-                        </div>
+                        <legend><i class="fa fa-angle-right"></i> Datos del Curso</legend>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Estado<span class="text-danger">*</span></label>
+                            <label class="col-md-4 control-label" for="nameCourse">Curso <span class="text-danger">*</span></label>
                             <div class="col-md-6">
-                                <label class="radio-inline" for="example-inline-radio1">
-                                    <input type="radio" id="state" name="state" value="true"> activo
-                                </label>
-                                <label class="radio-inline" for="example-inline-radio2">
-                                    <input type="radio" id="estadoCurso" name="estadoCurso" value="false"> inactivo
-                                </label>
+                                <div class="input-group">
+                                    <select class="form-control" name="idCourse" id="idCourse">
+                                        <option class="form-control" selected="" disabled="">Seleccione un curso</option>
+
+                                    </select>
+                                    <span class="input-group-addon"><i class="fa fa-question"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="nameMateria">Materia <span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <select class="form-control" name="idSubject" id="idSubject">
+                                        <option class="form-control" selected="" disabled="">Seleccione una materia</option>
+                                        <?php
+                                        $options = new subjectService();
+                                        echo $options->getSubject();
+                                        ?>
+                                    </select>
+                                    <span class="input-group-addon"><i class="fa fa-question"></i></span>
+                                </div>
                             </div>
                         </div>
 
                     </fieldset>
-
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit" class="btn btn-sm btn-primary " id="submit" name="submit"><i class="fa fa-arrow-right"></i> Agregar Respuesta</button>
+                            <button type="submit" class="btn btn-sm btn-primary " id="submit" name="submit"><i class="fa fa-arrow-right"></i> Crear Curso</button>
                             <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Limpiar</button>
                         </div>
                     </div>
@@ -102,32 +90,33 @@
 
 <script>$(function () {
         FormsValidation.init();
-    });</script>
+    });
+</script>
 <script>
     $(document).ready(function () {
 
         $('#form-generic').submit(function (e) {
             $('#submit').text("Enviando datos...");
-            $('#submit').prop("disabled", true);
+            $('#submit').prop("disabled",true);
             e.preventDefault();
             var data = $(this).serializeArray();
             $.ajax({
-                url: '../../../controller/answerController.php',
+                url:'../../../controller/EvaluationController.php',
                 type: 'post',
                 dataType: 'html',
                 data: data,
-                success: function (data) {
+                success: function(data) {
                     if (data == true) {
                         $('#submit').removeProp("disabled");
-                        $('#submit').text("Agregar Respuesta");
+                        $('#submit').text("Crear Curso");
                         document.getElementById("form-generic").reset();
-                        $('#response-message').text("La pregunta fue creada la respuesta");
+                        $('#response-message').text("El curso fue creado correctamente");
                         $("#btn-message").trigger("click");
                     } else {
                         $('#submit').removeProp("disabled");
-                        $('#submit').text("Agregar Respuesta");
+                        $('#submit').text("Crear Curso");
                         $('#submit').removeProp("disabled");
-                        $('#response-message').text("No fue posible crear la respuesta");
+                        $('#response-message').text("No fue posible crear el curso");
                         $("#btn-message").trigger("click");
                     }
                 }
@@ -137,3 +126,4 @@
 </script>
 
 <?php include '../../inc/template_end.php'; ?>
+

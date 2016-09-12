@@ -7,12 +7,7 @@ class Question
     private $sentence;
     private $state;
     
-    function __construct($idQuestion, $idSubject, $typeQuestionFk, $sentence, $state) {
-        $this->idQuestion = $idQuestion;
-        $this->idSubject = $idSubject;
-        $this->typeQuestionFk = $typeQuestionFk;
-        $this->sentence = $sentence;
-        $this->state = $state;
+    function __construct() {
     }
 
     function getIdQuestion() {

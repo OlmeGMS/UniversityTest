@@ -72,26 +72,32 @@ class EvaluationDao implements IEvaluationDao
 
     public function insertEvaluation(Evaluation $evaluation)
     {
-        $result = 0; //marcador para el resultado de la acción
-        $query = 'INSERT INTO tbl_usuarios (eva_documento, eva_pnombre, eva_snombre, eva_papellido, 
-            eva_sapellido, eva_usuario, eva_password, eva_idrolfk, eva_estado, 
-            eva_email) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO tbl_evaluaciones (eva_fecharegistro, eva_fechainicial, eva_fechafinal, eva_estado, 
+            eva_idusuariofk, eva_idmateriafk) VALUES(?, ?, ?, ?, ?, ?)';
         try {
+            $this->conn->beginTransaction();
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $evaluation->getDocument(), PDO::PARAM_INT);
-            $stmt->bindParam(2, $evaluation->getFirstName(), PDO::PARAM_STR);
-            $stmt->bindParam(3, $evaluation->getSecondName(), PDO::PARAM_STR);
-            $stmt->bindParam(4, $evaluation->getFirstLastName(), PDO::PARAM_STR);
-            $stmt->bindParam(5, $evaluation->getSecondLastName(), PDO::PARAM_STR);
-            $stmt->bindParam(6, $evaluation->getUser(), PDO::PARAM_STR);
-            $stmt->bindParam(7, $evaluation->getPassword(), PDO::PARAM_STR);
-            $stmt->bindParam(8, $evaluation->getIdRol(), PDO::PARAM_STR);
-            $stmt->bindParam(9, $evaluation->getState(), PDO::PARAM_STR);
-            $stmt->bindParam(10, $evaluation->getEmail(), PDO::PARAM_STR);
+            $stmt->bindParam(1, date("Y-m-d H:i:s"), PDO::PARAM_INT);
+            $stmt->bindParam(2, $evaluation->getInitialDate(), PDO::PARAM_STR);
+            $stmt->bindParam(3, $evaluation->getEndDate(), PDO::PARAM_STR);
+            $stmt->bindParam(4, $evaluation->getState(), PDO::PARAM_STR);
+            $stmt->bindParam(5, $evaluation->getIdUser(), PDO::PARAM_INT);
+            $stmt->bindParam(6, $evaluation->getIdSubject(), PDO::PARAM_INT);
             $stmt->execute();
             if ($stmt->rowCount() != 0) {
+                //$q = new Question();
+                //$q->getIdQuestion();
+                foreach ($evaluation->getListQuestions() as $item) {
+                    $query = 'INSERT INTO tbl_evaluacionpregunta (eva_idevaluacionfk, eva_idpreguntasfk) VALUES(?, ?)';
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->bindParam(1, $evaluation->getId(), PDO::PARAM_INT);
+                    $stmt->bindParam(2, $item->getIdQuestion(), PDO::PARAM_INT);
+                    $stmt->execute();
+                }
+                $this->conn->commit();
                 $result = true;
             } else {
+                $this->conn->rollBack();
                 $result = 'No se pudo guardar el registro. Consulte al administrador';
             }
         }

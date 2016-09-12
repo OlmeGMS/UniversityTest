@@ -3,7 +3,7 @@ require_once ('../../../model/subject/Subject.class.php');
 require_once ('../../../model/question/Question.class.php');
 require_once ('../../../utils/DbConnection.php');
 
-class questionService {
+class QuestionService {
 
     private $conn = null;
 
@@ -18,22 +18,25 @@ class questionService {
         try
         {
             $result = array();
-            $questionArray = array();
             $toString = "";
             $sql = 'SELECT eva_idpreguntaspk, eva_idmateriapk, eva_tipopreguntafk, eva_enunciado, eva_estado
-	            FROM public.tbl_preguntas';
+	            FROM tbl_preguntas';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
             foreach ($stmt->fetchAll(PDO::FETCH_OBJ)as$row){
-                $newQuestion = new Question($row->eva_idpreguntaspk, $row->eva_idmateriapk, $row->eva_tipopreguntafk, $row->eva_enunciado, $row->eva_estado);
-                $result[] = $newQuestion;
-                array_push($questionArray,$newQuestion);
+                $question = new Question();
+                $question->setIdQuestion($row->eva_idpreguntaspk);
+                $question->setIdSubject($row->eva_idmateriapk);
+                $question->setTypeQuestionFk($row->eva_tipopreguntafk);
+                $question->setSentence($row->eva_enunciado);
+                $question->setState($row->eva_estado);
+                $result[] = $question;
             }
             foreach ($result as $item=>$value){
                
-                $toString .= '<tr>
-                             <td class="text-left" id="idPregutna"><a href="javascript:void(0)" class="label label-info">'.$value->getIdQuestion().'</a></td>
+                $toString .= '<tr idQuestion="'.$value->getIdQuestion().'">
+                             <td class="text-left" ><a href="javascript:void(0)" class="label label-info">'.$value->getIdQuestion().'</a></td>
                              <td>'.$value->getSentence().'</td>
                              <td class="text-center">
                              <div class="btn-group btn-group-xs">
@@ -65,8 +68,6 @@ class questionService {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
-
-
             foreach ($stmt->fetchAll(PDO::FETCH_OBJ)as$row){
                 $newQuestion = new Question($row->eva_idpreguntaspk, $row->eva_idmateriapk, $row->eva_tipopreguntafk, $row->eva_enunciado, $row->eva_estado);
                 $result[] = $newQuestion;
@@ -85,6 +86,7 @@ class questionService {
             DbConnection::disconnect();
         }
     }
+
     public function getId(){
         try
         {
@@ -95,16 +97,11 @@ class questionService {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
-
-
             foreach ($stmt->fetchAll(PDO::FETCH_OBJ)as$row){
                 $newQuestion = new Question($row->eva_idpreguntaspk, $row->eva_idmateriapk, $row->eva_tipopreguntafk, $row->eva_enunciado, $row->eva_estado);
                 $result[] = $newQuestion;
             }
-
             $toString.= print $newQuestion->getIdQuestion();
-
-
             return $toString;
         }
         catch (PDOException $e)
@@ -114,6 +111,59 @@ class questionService {
         finally {
             DbConnection::disconnect();
         }
+    }
+
+    public function getQuestions(Subject $subject, $quantity){
+        try
+        {
+            $result = array();
+            $sql = "SELECT eva_idpreguntaspk, eva_tipopreguntafk, eva_estado, eva_idMateriaFk FROM tbl_preguntas WHERE eva_idMateriaFk = '".$subject->getIdSubject()."' AND eva_estado = 'true'";
+            try {
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+
+                foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row){
+                    $question = new Question();
+                    $question->setIdQuestion($row->eva_idpreguntaspk);
+                    $question->setIdSubject($subject->getIdSubject());
+                    $result[] = $question;
+                }
+                if(count($result) >= $quantity){
+                    $result = $this->chooseQuestionsRandom($result, $quantity);
+                }else{
+                    return null;
+                }
+            } catch (PDOException $e) {
+                echo 'ERROR SQL :'. $e->getMessage();
+            } finally {
+                DbConnection::disconnect();
+            }
+            return $result;
+        }
+        catch (PDOException $e)
+        {
+            return 'Error al ejecutar la consulta. '.$e->getMessage();
+        }
+        finally {
+            DbConnection::disconnect();
+        }
+    }
+
+    private static function chooseQuestionsRandom($result, $quantity){
+        $newArray = array();
+        $selected = array();
+        //Agrega numeros aleatorios a un arreglo
+        while(count($selected) < $quantity) {
+            $num = rand(1, $quantity);
+            if(!in_array($num, $selected)){
+                $selected[] = $num;
+            }
+        }
+        //Carga el array a devolver con valores aleatorios
+        for ($i=0; $i < count($selected); $i++){
+            $newArray = $result[$selected[i]];
+        }
+        return $newArray;
     }
 
 }

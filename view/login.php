@@ -239,35 +239,34 @@ session_start();
 <!-- Load and execute javascript code used only in this page -->
 <script src="js/pages/login.js"></script>
 <script>$(function(){ Login.init(); });</script>
-    <script>
-        $(document).ready(function () {
+<script>
+    $(document).ready(function () {
 
-            $('#form-register').submit(function (e) {
-                $('#submitRegister').text("Enviando registro...");
-                $('#submitRegister').prop("disabled",true);
-                e.preventDefault();
-                var data = $(this).serializeArray();
-                $.ajax({
-                    url:'../controller/loginController.php?register=true',
-                    type: 'post',
-                    dataType: 'json',
-                    data: data,
-                    success: function(data) {
-                        if(data.response != true) {
-                            $('#submitRegister').removeProp("disabled");
-                            $('#response-message').text(data.message);
-                            $("#btn-message").trigger("click");
-                        }else{
-                            $('#submitRegister').removeProp("disabled");
-                            $('#response-message').text(data.message);
-                            $("#btn-message").trigger("click");
-                            document.getElementById("form-register").reset();
-                            $('#submitRegister').text("Registrar Cuenta");
-                        }
+        $('#form-register').submit(function (e) {
+            $('#submitRegister').text("Enviando registro...");
+            $('#submitRegister').prop("disabled",true);
+            e.preventDefault();
+            var data = $(this).serializeArray();
+            $.ajax({
+                url:'../controller/loginController.php?register=true',
+                type: 'post',
+                dataType: 'json',
+                data: data,
+                success: function(data) {
+                    if(data.response != true) {
+                        $('#submitRegister').removeProp("disabled");
+                        $('#response-message').text(data.message);
+                        $("#btn-message").trigger("click");
+                    }else{
+                        $('#submitRegister').removeProp("disabled");
+                        $('#response-message').text(data.message);
+                        $("#btn-message").trigger("click");
+                        document.getElementById("form-register").reset();
+                        $('#submitRegister').text("Registrar Cuenta");
                     }
-                })
+                }
             })
         })
-    </script>
-
+    })
+</script>
 <?php include 'inc/template_end_home.php'; ?>
