@@ -2,6 +2,7 @@
 <?php include '../../inc/template_start.php'; ?>
 <?php include '../../inc/page_head.php'; ?>
 <?php include '../../../services/subjectService.php'?>;
+<?php include '../../../services/QuestionService.php' ?>;
 
 <!-- Page content -->
 <div id="page-content">
@@ -25,14 +26,14 @@
             <div class="block">
                 <!-- Form Validation Example Title -->
                 <div class="block-title">
-                    <h2><strong>Crear evaluación</strong> Curso</h2>
+                    <h2><strong>Crear evaluación</strong> Evaluación</h2>
                 </div>
                 <!-- END Form Validation Example Title -->
 
-                <!-- Form Validation Example Content -->
+                <!-- Form manual -->
                 <form id="form-generic" class="form-horizontal form-bordered">
                     <fieldset>
-                        <legend><i class="fa fa-angle-right"></i> Datos del Curso</legend>
+                        <legend><i class="fa fa-angle-right"></i> Datos de la Evaluación</legend>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="nameCourse">Curso <span class="text-danger">*</span></label>
@@ -40,7 +41,10 @@
                                 <div class="input-group">
                                     <select class="form-control" name="idCourse" id="idCourse">
                                         <option class="form-control" selected="" disabled="">Seleccione un curso</option>
-
+                                        <?php
+                                            $options = new subjectService();
+                                            echo $options->getSubject();
+                                        ?>
                                     </select>
                                     <span class="input-group-addon"><i class="fa fa-question"></i></span>
                                 </div>
@@ -61,12 +65,91 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Fecha evaluación -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="example-daterange1">Seleccione la fecha</label>
+                            <div class="col-md-6">
+                                <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                                    <input type="text" id="example-daterange1" name="example-daterange1" class="form-control text-center" placeholder="From">
+                                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                                    <input type="text" id="example-daterange2" name="example-daterange2" class="form-control text-center" placeholder="To">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Hora evaluación -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="example-timepicker">Seleccione el tiempo</label>
+                            <div class="col-md-3">
+                                <div class="input-group bootstrap-timepicker">
+                                    <input type="text" id="example-timepicker" name="example-timepicker" class="form-control input-timepicker">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group bootstrap-timepicker">
+                                    <input type="text" id="example-timepicker" name="example-timepicker" class="form-control input-timepicker">
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tipo de evaluación</label>
+                            <div class="col-md-6">
+                                <label class="radio-inline" for="example-inline-radio1">
+                                    <input type="radio" id="manual" name="typeEvaluation" value="manual"> Manual
+                                </label>
+                                <label class="radio-inline" for="example-inline-radio2">
+                                    <input type="radio" id="automatic" name="typeEvaluation" value="automatic"> Automático
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group manual hidden">
+                            <label class="col-md-4 control-label h3"><strong>Manual</strong></label>
+                            <div class="col-md-6">
+                                <span class="label label-success animation-pulse">Preguntas seleccionadas</span>
+                                <span class="label label-success animation-pulse">0</span>
+                                <div class="table-responsive">
+                                    <table name="answers" id="answers" class="table table-vcenter table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Enunciado</th>
+                                            <th style="width: 150px;" class="text-center">Acción</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        $options = new questionService();
+                                        echo $options->getQuestion();
+                                        ?>  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group automatic hidden">
+                            <label class="col-md-4 control-label h3"><strong>Automático</strong></label>
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label">Cantidad de preguntas</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="gi gi-calculator"></i></span>
+                                    <input type="number" id="quantity" name="quantity" class="form-control input-sm" placeholder="Cantidad de preguntas">
+                                </div>
+                            </div>
+                        </div>
 
                     </fieldset>
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit" class="btn btn-sm btn-primary " id="submit" name="submit"><i class="fa fa-arrow-right"></i> Crear Curso</button>
-                            <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Limpiar</button>
+                            <button type="submit" class="btn btn-sm btn-primary " id="submit" name="submit"><i class="fa fa-arrow-right"></i> Crear evaluación</button>
+                            <button type="reset" class="btn btn-sm btn-warning" id="reset"><i class="fa fa-repeat"></i> Limpiar</button>
                         </div>
                     </div>
                 </form>
@@ -93,8 +176,25 @@
     });
 </script>
 <script>
+    $(document).ready(function (){
+        $('#form-generic input').on('change', function() {
+            if ($("#manual").is(":checked") ) {
+                $('.manual').removeClass('hidden');
+                $('.automatic').addClass('hidden');
+            }
+            if($("#automatic").is(":checked")){
+                $('.automatic').removeClass('hidden');
+                $('.manual').addClass('hidden');
+            }
+        });
+        $('#reset').on('click',function (){
+            $('.manual').addClass('hidden');
+            $('.automatic').addClass('hidden'); 
+        });
+    });
+</script>
+<script>
     $(document).ready(function () {
-
         $('#form-generic').submit(function (e) {
             $('#submit').text("Enviando datos...");
             $('#submit').prop("disabled",true);
@@ -103,21 +203,19 @@
             $.ajax({
                 url:'../../../controller/EvaluationController.php',
                 type: 'post',
-                dataType: 'html',
+                dataType: 'json',
                 data: data,
                 success: function(data) {
-                    if (data == true) {
-                        $('#submit').removeProp("disabled");
-                        $('#submit').text("Crear Curso");
-                        document.getElementById("form-generic").reset();
-                        $('#response-message').text("El curso fue creado correctamente");
+                    if(data.response != true) {
+                        $('#submitRegister').removeProp("disabled");
+                        $('#response-message').text(data.message);
                         $("#btn-message").trigger("click");
-                    } else {
-                        $('#submit').removeProp("disabled");
-                        $('#submit').text("Crear Curso");
-                        $('#submit').removeProp("disabled");
-                        $('#response-message').text("No fue posible crear el curso");
+                    }else{
+                        $('#submitRegister').removeProp("disabled");
+                        $('#response-message').text(data.message);
                         $("#btn-message").trigger("click");
+                        document.getElementById("form-register").reset();
+                        $('#submitRegister').text("Registrar Cuenta");
                     }
                 }
             })
