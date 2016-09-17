@@ -14,12 +14,24 @@ require_once ('../services/QuestionService.php');
 
 session_start();
 
-
 $evaluationFacade = new EvaluationFacade();
 $evaluation = new Evaluation();
 $user = new User();
 $subject = new Subject();
 $questionService = new QuestionService();
+
+if($_POST['typeEvaluation'] == 'automatic'){
+    $quantityQuestions = $_POST['quantityQuestions'];
+}else{
+
+}
+
+
+$_POST['idCourse']
+$_POST['idSubject']
+$_POST['']
+$_POST['']
+$_POST['']
 
 //Valida fecha inicial y final
 $diffDate = $evaluationFacade->validateDate($_POST["initialDate"],$_POST['endDate']);

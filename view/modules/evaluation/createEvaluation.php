@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="nameMateria">Materia <span class="text-danger">*</span></label>
+                            <label class="col-md-4 control-label" for="nameSubject">Materia <span class="text-danger">*</span></label>
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control" name="idSubject" id="idSubject">
@@ -70,32 +70,37 @@
                             <label class="col-md-4 control-label" for="example-daterange1">Seleccione la fecha</label>
                             <div class="col-md-6">
                                 <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
-                                    <input type="text" id="example-daterange1" name="example-daterange1" class="form-control text-center" placeholder="From">
+                                    <input type="text" id="initialDate" name="initialDate" class="form-control text-center" placeholder="From" required>
+                                    <span class="input-group-btn">
+                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
+                                    </span>
                                     <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
-                                    <input type="text" id="example-daterange2" name="example-daterange2" class="form-control text-center" placeholder="To">
+                                    <input type="text" id="endDate" name="endDate" class="form-control text-center" placeholder="To" required>
                                 </div>
                             </div>
                         </div>
                         <!-- Hora evaluación -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="example-timepicker">Seleccione el tiempo</label>
-                            <div class="col-md-3">
+                            <label class="col-md-4 control-label" for="example-daterange1">Seleccione la hora</label>
+                            <div class="col-md-6">
                                 <div class="input-group bootstrap-timepicker">
-                                    <input type="text" id="example-timepicker" name="example-timepicker" class="form-control input-timepicker">
+                                    <input type="text" id="initialDate" name="initialDate" class="form-control text-center input-timepicker" placeholder="From">
                                     <span class="input-group-btn">
                                         <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
                                     </span>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
+
+                                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+
                                 <div class="input-group bootstrap-timepicker">
-                                    <input type="text" id="example-timepicker" name="example-timepicker" class="form-control input-timepicker">
+                                    <input type="text" id="endDate" name="endDate" class="form-control text-center input-timepicker" placeholder="To">
                                     <span class="input-group-btn">
                                         <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
                                     </span>
                                 </div>
                             </div>
                         </div>
+                        <!-- Hora evaluación -->
                         <div class="form-group">
                             <label class="col-md-4 control-label">Tipo de evaluación</label>
                             <div class="col-md-6">
@@ -140,11 +145,10 @@
                                 <label class="col-md-4 control-label">Cantidad de preguntas</label>
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="gi gi-calculator"></i></span>
-                                    <input type="number" id="quantity" name="quantity" class="form-control input-sm" placeholder="Cantidad de preguntas">
+                                    <input type="number" id="quantityQuestions" name="quantityQuestions" class="form-control input-sm" placeholder="Cantidad de preguntas">
                                 </div>
                             </div>
                         </div>
-
                     </fieldset>
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
