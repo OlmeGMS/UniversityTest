@@ -80,19 +80,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="example-daterange1">Seleccione la hora</label>
                             <div class="col-md-6">
-                                <label class="col-md-2 control-label" for="nameSubject">Inicio <span class="text-danger">*</span></label>
-                                <div class="col-md-4 input-group bootstrap-timepicker">
-                                    <input type="text" id="initialDate" name="initialDate" class="form-control text-center input-timepicker" placeholder="From">
-                                    <span class="input-group-btn">
-                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
-                                    </span>
-                                </div>
-                                <label class="col-md-2 control-label" for="nameSubject">Final <span class="text-danger">*</span></label>
-                                <div class="col-md-4 input-group bootstrap-timepicker">
-                                    <input type="text" id="endDate" name="endDate" class="form-control text-center input-timepicker" placeholder="To">
-                                    <span class="input-group-btn">
-                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
-                                    </span>
+                                <div class="input-group">
+                                    <div class=" bootstrap-timepicker">
+                                        <input type="text" id="initialDate" name="initialDate" class="form-control text-center input-timepicker">
+                                    </div>
+                                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                                    <div class=" bootstrap-timepicker">
+                                        <input type="text" id="endDate" name="endDate" class="form-control text-center input-timepicker">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +165,6 @@
 
 <!-- Load and execute javascript code used only in this page -->
 <script src="../../js/pages/formsValidation.js"></script>
-
 <script>$(function () {
         FormsValidation.init();
     });
