@@ -70,12 +70,9 @@
                             <label class="col-md-4 control-label" for="example-daterange1">Seleccione la fecha</label>
                             <div class="col-md-6">
                                 <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
-                                    <input type="text" id="initialDate" name="initialDate" class="form-control text-center" placeholder="From" required>
-                                    <span class="input-group-btn">
-                                        <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
-                                    </span>
+                                    <input type="text" id="initialDate" name="initialDate" class="form-control text-center" placeholder="Inicio" required>
                                     <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
-                                    <input type="text" id="endDate" name="endDate" class="form-control text-center" placeholder="To" required>
+                                    <input type="text" id="endDate" name="endDate" class="form-control text-center" placeholder="Final" required>
                                 </div>
                             </div>
                         </div>
@@ -83,16 +80,15 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="example-daterange1">Seleccione la hora</label>
                             <div class="col-md-6">
-                                <div class="input-group bootstrap-timepicker">
+                                <label class="col-md-2 control-label" for="nameSubject">Inicio <span class="text-danger">*</span></label>
+                                <div class="col-md-4 input-group bootstrap-timepicker">
                                     <input type="text" id="initialDate" name="initialDate" class="form-control text-center input-timepicker" placeholder="From">
                                     <span class="input-group-btn">
                                         <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
                                     </span>
                                 </div>
-
-                                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
-
-                                <div class="input-group bootstrap-timepicker">
+                                <label class="col-md-2 control-label" for="nameSubject">Final <span class="text-danger">*</span></label>
+                                <div class="col-md-4 input-group bootstrap-timepicker">
                                     <input type="text" id="endDate" name="endDate" class="form-control text-center input-timepicker" placeholder="To">
                                     <span class="input-group-btn">
                                         <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
@@ -100,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Hora evaluación -->
+                        <!-- Tipo evaluación -->
                         <div class="form-group">
                             <label class="col-md-4 control-label">Tipo de evaluación</label>
                             <div class="col-md-6">
@@ -210,14 +206,10 @@
                 dataType: 'json',
                 data: data,
                 success: function(data) {
-                    if(data.response != true) {
-                        $('#submitRegister').removeProp("disabled");
-                        $('#response-message').text(data.message);
-                        $("#btn-message").trigger("click");
-                    }else{
-                        $('#submitRegister').removeProp("disabled");
-                        $('#response-message').text(data.message);
-                        $("#btn-message").trigger("click");
+                    $('#submitRegister').removeProp("disabled");
+                    $('#response-message').text(data.message);
+                    $("#btn-message").trigger("click");
+                    if(data.response === true) {
                         document.getElementById("form-register").reset();
                         $('#submitRegister').text("Registrar Cuenta");
                     }
