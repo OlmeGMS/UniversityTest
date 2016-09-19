@@ -1,8 +1,13 @@
-<?php include '../../inc/config.php'; ?>
-<?php include '../../inc/template_start.php'; ?>
-<?php include '../../inc/page_head.php'; ?>
-<?php include '../../../services/subjectService.php'?>;
-<?php include '../../../services/QuestionService.php' ?>;
+<?php
+    include __DIR__.'/../../inc/config.php';
+    include __DIR__.'/../../inc/template_start.php';
+    include __DIR__.'/../../inc/page_head.php';
+?>
+<?php
+    include __DIR__.'/../../../services/subjectService.php';
+    include __DIR__.'/../../../services/QuestionService.php';
+    include __DIR__.'/../../../services/CourseService.php';
+?>
 
 <!-- Page content -->
 <div id="page-content">
@@ -42,8 +47,8 @@
                                     <select class="form-control" name="idCourse" id="idCourse">
                                         <option class="form-control" selected="" disabled="">Seleccione un curso</option>
                                         <?php
-                                            $options = new subjectService();
-                                            echo $options->getSubject();
+                                            $courses = new CourseService();
+                                            echo $courses->getCourses();
                                         ?>
                                     </select>
                                     <span class="input-group-addon"><i class="fa fa-question"></i></span>
