@@ -16,10 +16,9 @@ class UserDao implements IUserDao
 
     public function getUser(User $user)
     {
-        $sql = "SELECT eva_usuario, eva_password,eva_documento, eva_pnombre, eva_snombre, eva_papellido, eva_sapellido,
-                 eva_idrolfk, eva_estado, eva_email FROM tbl_usuarios WHERE eva_usuario = '".$user->getUser()."'";
+        $query = "SELECT eva_usuario, eva_password,eva_documento, eva_pnombre, eva_snombre, eva_papellido, eva_sapellido, eva_idrolfk, eva_estado, eva_email FROM tbl_usuarios WHERE eva_usuario = '".$user->getUser()."'";
         try {
-            $stmt = $this->conn->prepare($sql);
+            $stmt = $this->conn->prepare($query);
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row) {
@@ -53,14 +52,18 @@ class UserDao implements IUserDao
 
     public function login(User $user)
     {
-        $sql = "SELECT eva_usuario, eva_password FROM tbl_usuarios WHERE eva_usuario = '".$user->getUser()."' AND eva_password = '".$user->getPassword()."'";
+        $sql = "SELECT eva_idUsuariopk,eva_usuario, eva_password FROM tbl_usuarios WHERE eva_usuario = '".$user->getUser()."' AND eva_password = '".$user->getPassword()."'";
         try {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             if($stmt->rowCount() > 0){
-                $result = true;
+                foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row) {
+                    $user->setId($row->eva_idusuariopk);
+                    break;
+                }
+                $result = $user;
             }else{
-                $result = false;
+                $result = null;
             }
         }
         catch (PDOException $e) {
@@ -99,10 +102,7 @@ class UserDao implements IUserDao
 
     public function insertUser(User $user)
     {
-        $result = 0; //marcador para el resultado de la acción
-        $query = 'INSERT INTO tbl_usuarios (eva_documento, eva_pnombre, eva_snombre, eva_papellido, 
-            eva_sapellido, eva_usuario, eva_password, eva_idrolfk, eva_estado, 
-            eva_email) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $query = "INSERT INTO tbl_usuarios (eva_documento,eva_pnombre,eva_sNombre,eva_papellido,eva_sapellido,eva_usuario,eva_password,eva_idrolfk,eva_estado,eva_email) VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $user->getDocument(), PDO::PARAM_INT);

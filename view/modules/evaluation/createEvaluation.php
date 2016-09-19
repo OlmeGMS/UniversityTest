@@ -82,11 +82,11 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <div class=" bootstrap-timepicker">
-                                        <input type="text" id="initialDate" name="initialDate" class="form-control text-center input-timepicker">
+                                        <input type="text" id="initialHora" name="initialHora" class="form-control text-center input-timepicker">
                                     </div>
                                     <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
                                     <div class=" bootstrap-timepicker">
-                                        <input type="text" id="endDate" name="endDate" class="form-control text-center input-timepicker">
+                                        <input type="text" id="endHora" name="endHora" class="form-control text-center input-timepicker">
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,18 @@
                                 </label>
                             </div>
                         </div>
-
+                        <!-- Tipo Automatico -->
+                        <div class="form-group automatic hidden">
+                            <label class="col-md-4 control-label h3"><strong>Automático</strong></label>
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label">Cantidad de preguntas</label>
+                                <div class="input-group col-md-3">
+                                    <span class="input-group-addon"><i class="gi gi-calculator"></i></span>
+                                    <input type="number" id="quantityQuestions" name="quantityQuestions" class="form-control input-sm text-right" placeholder="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tipo Manual -->
                         <div class="form-group manual hidden">
                             <label class="col-md-4 control-label h3"><strong>Manual</strong></label>
                             <div class="col-md-6">
@@ -122,28 +133,16 @@
                                         <?php
                                         $options = new questionService();
                                         echo $options->getQuestion();
-                                        ?>  
+                                        ?>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            
-                        </div>
-
-                        <div class="form-group automatic hidden">
-                            <label class="col-md-4 control-label h3"><strong>Automático</strong></label>
-                            <div class="col-md-6">
-                                <label class="col-md-4 control-label">Cantidad de preguntas</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="gi gi-calculator"></i></span>
-                                    <input type="number" id="quantityQuestions" name="quantityQuestions" class="form-control input-sm" placeholder="Cantidad de preguntas">
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit" class="btn btn-sm btn-primary " id="submit" name="submit"><i class="fa fa-arrow-right"></i> Crear evaluación</button>
+                            <button type="submit" class="btn btn-sm btn-primary " id="submit" name="submit" disabled="true"><i class="fa fa-arrow-right"></i> Crear evaluación</button>
                             <button type="reset" class="btn btn-sm btn-warning" id="reset"><i class="fa fa-repeat"></i> Limpiar</button>
                         </div>
                     </div>
@@ -172,6 +171,7 @@
 <script>
     $(document).ready(function (){
         $('#form-generic input').on('change', function() {
+            $('#submit').removeProp("disabled");
             if ($("#manual").is(":checked") ) {
                 $('.manual').removeClass('hidden');
                 $('.automatic').addClass('hidden');
@@ -182,6 +182,7 @@
             }
         });
         $('#reset').on('click',function (){
+            $('#submit').prop("disabled",true);
             $('.manual').addClass('hidden');
             $('.automatic').addClass('hidden'); 
         });
@@ -200,12 +201,12 @@
                 dataType: 'json',
                 data: data,
                 success: function(data) {
-                    $('#submitRegister').removeProp("disabled");
+                    $('#submit').removeProp("disabled");
                     $('#response-message').text(data.message);
                     $("#btn-message").trigger("click");
-                    if(data.response === true) {
-                        document.getElementById("form-register").reset();
-                        $('#submitRegister').text("Registrar Cuenta");
+                    if(data.response == 'true') {
+                        document.getElementById("form-generic").reset();
+                        $('#submit').text("Registrar Cuenta");
                     }
                 }
             })

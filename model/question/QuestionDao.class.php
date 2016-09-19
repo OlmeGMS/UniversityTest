@@ -35,8 +35,7 @@ class QuestionDao implements IQuestionDao
     
     public function insertQuestion (Question $question){
         
-        $query = 'INSERT INTO public.tbl_preguntas(eva_idMateriaPk, eva_tipoPreguntaFk, eva_enunciado, eva_estado)
-	          VALUES (?, ?, ?, ?)';
+        $query = "INSERT INTO tbl_preguntas(eva_idMateriaFk,eva_tipoPreguntaFk,eva_enunciado,eva_estado) VALUES (?,?,?,?)";
         try {
             $stm = $this->conn->prepare($query);
             $stm->bindParam(1, $question->getIdSubject(),  PDO::PARAM_INT);

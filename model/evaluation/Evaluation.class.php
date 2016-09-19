@@ -6,15 +6,17 @@ class Evaluation
     private $registerDate;
     private $initialDate;
     private $endDate;
+    private $initialHora;
+    private $endHora;
     private $state;
-    private $user;
-    private $subject;
+    private $idUser;
+    private $idCourse;
+    private $idSubject;
     private $listQuestions;
 
     public function __construct()
     {
-        $this->user = new User();
-        $this->subject = new Subject();
+
     }
 
     /**
@@ -100,33 +102,33 @@ class Evaluation
     /**
      * @return User
      */
-    public function getUser()
+    public function getIdUser()
     {
-        return $this->user;
+        return $this->idUser;
     }
 
     /**
-     * @param User $user
+     * @param $idUser
      */
-    public function setUser($user)
+    public function setIdUser($idUser)
     {
-        $this->user = $user;
+        $this->idUser = $idUser;
     }
 
     /**
      * @return Subject
      */
-    public function getSubject()
+    public function getIdSubject()
     {
-        return $this->subject;
+        return $this->idSubject;
     }
 
     /**
-     * @param Subject $subject
+     * @param Subject $idSubject
      */
-    public function setSubject($subject)
+    public function setIdSubject($idSubject)
     {
-        $this->subject = $subject;
+        $this->idSubject = $idSubject;
     }
 
     /**
@@ -143,6 +145,54 @@ class Evaluation
     public function setListQuestions($listQuestions)
     {
         $this->listQuestions = $listQuestions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdCourse()
+    {
+        return $this->idCourse;
+    }
+
+    /**
+     * @param mixed $idCourse
+     */
+    public function setIdCourse($idCourse)
+    {
+        $this->idCourse = $idCourse;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInitialHora()
+    {
+        return $this->initialHora;
+    }
+
+    /**
+     * @param mixed $initialHora
+     */
+    public function setInitialHora($initialHora)
+    {
+        $this->initialHora = $initialHora;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndHora()
+    {
+        return $this->endHora;
+    }
+
+    /**
+     * @param mixed $endHora
+     */
+    public function setEndHora($endHora)
+    {
+        $this->endHora = $endHora;
     }
 
 

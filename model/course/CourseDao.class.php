@@ -40,14 +40,14 @@ class CourseDao implements ICourseDao
 
     public function insertCourse(Course $course)
     {
-        $result = 0;
-        $query = 'INSERT INTO tbl_cursos (eva_codigo, eva_nombre,eva_estado,eva_fechacreacion) VALUES(?,?,?,?)';
+        $query = 'INSERT INTO tbl_cursos (eva_codigo, eva_nombre,eva_estado,eva_fechacreacion,eva_usuariofk) VALUES(?,?,?,?,?)';
         try {
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $course->getCode(), PDO::PARAM_INT);
             $stmt->bindParam(2, $course->getName(), PDO::PARAM_STR);
             $stmt->bindParam(3, $course->getState(), PDO::PARAM_INT);
             $stmt->bindParam(4, date("Y-m-d H:i:s"), PDO::PARAM_INT);
+            $stmt->bindParam(5, $course->getIdUser(), PDO::PARAM_INT);
             $stmt->execute();
             if ($stmt->rowCount() != 0) {
                 return true;

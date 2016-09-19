@@ -37,7 +37,7 @@
                                                                 <label class="col-md-4 control-label" for="code">Código<span class="text-danger">*</span></label>
                                                                 <div class="col-md-6">
                                                                     <div class="input-group">
-                                                                        <input type="text" id="code" name="code" class="form-control" placeholder="Código del curso">
+                                                                        <input type="number" id="code" name="code" class="form-control" placeholder="Código del curso">
                                                                         <span class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></span>
                                                                     </div>
                                                                 </div>

@@ -1,7 +1,7 @@
 <?php
-require_once ('../../../model/subject/Subject.class.php');
-require_once ('../../../model/question/Question.class.php');
-require_once ('../../../utils/DbConnection.php');
+require_once __DIR__.'/../model/subject/Subject.class.php';
+require_once __DIR__.'/../model/question/Question.class.php';
+require_once __DIR__.'/../utils/DbConnection.php';
 
 class QuestionService {
 
@@ -113,19 +113,18 @@ class QuestionService {
         }
     }
 
-    public function getQuestions(Subject $subject, $quantity){
+    public function getQuestions($subject, $quantity){
         try
         {
             $result = array();
-            $sql = "SELECT eva_idpreguntaspk, eva_tipopreguntafk, eva_estado, eva_idMateriaFk FROM tbl_preguntas WHERE eva_idMateriaFk = '".$subject->getIdSubject()."' AND eva_estado = 'true'";
+            $sql = "SELECT eva_idpreguntaspk, eva_tipopreguntafk, eva_estado, eva_idMateriaFk FROM tbl_preguntas WHERE eva_idMateriaFk = '".$subject."' AND eva_estado = 'true'";
             try {
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute();
-
                 foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row){
                     $question = new Question();
                     $question->setIdQuestion($row->eva_idpreguntaspk);
-                    $question->setIdSubject($subject->getIdSubject());
+                    $question->setIdSubject($subject);
                     $result[] = $question;
                 }
                 if(count($result) >= $quantity){
@@ -160,8 +159,9 @@ class QuestionService {
             }
         }
         //Carga el array a devolver con valores aleatorios
-        for ($i=0; $i < count($selected); $i++){
-            $newArray = $result[$selected[i]];
+        foreach ($selected as $value) {
+            //$position = $selected[i];
+            $newArray[] = $result[$value];
         }
         return $newArray;
     }

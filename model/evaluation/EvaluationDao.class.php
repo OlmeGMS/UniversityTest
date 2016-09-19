@@ -72,8 +72,7 @@ class EvaluationDao implements IEvaluationDao
 
     public function insertEvaluation(Evaluation $evaluation)
     {
-        $query = 'INSERT INTO tbl_evaluaciones (eva_fecharegistro, eva_fechainicial, eva_fechafinal, eva_estado, 
-            eva_idusuariofk, eva_idmateriafk) VALUES(?, ?, ?, ?, ?, ?)';
+        $query = "INSERT INTO tbl_evaluaciones (eva_fecharegistro,eva_fechainicial,eva_fechafinal,eva_estado,eva_idusuariofk,eva_idmateriafk,eva_idcursofk) VALUES(?,?,?,?,?,?,?)";
         try {
             $this->conn->beginTransaction();
             $stmt = $this->conn->prepare($query);
@@ -83,16 +82,20 @@ class EvaluationDao implements IEvaluationDao
             $stmt->bindParam(4, $evaluation->getState(), PDO::PARAM_STR);
             $stmt->bindParam(5, $evaluation->getIdUser(), PDO::PARAM_INT);
             $stmt->bindParam(6, $evaluation->getIdSubject(), PDO::PARAM_INT);
+            $stmt->bindParam(7, $evaluation->getIdCourse(), PDO::PARAM_INT);
             $stmt->execute();
-            if ($stmt->rowCount() != 0) {
-                //$q = new Question();
-                //$q->getIdQuestion();
+            $idEvaluation = $this->conn->lastInsertId('tbl_evaluaciones_eva_idevaluacionpk_seq');
+            if ($stmt->rowCount() > 0) {
                 foreach ($evaluation->getListQuestions() as $item) {
                     $query = 'INSERT INTO tbl_evaluacionpregunta (eva_idevaluacionfk, eva_idpreguntasfk) VALUES(?, ?)';
                     $stmt = $this->conn->prepare($query);
-                    $stmt->bindParam(1, $evaluation->getId(), PDO::PARAM_INT);
+                    $stmt->bindParam(1, $idEvaluation, PDO::PARAM_INT);
                     $stmt->bindParam(2, $item->getIdQuestion(), PDO::PARAM_INT);
                     $stmt->execute();
+                    if($stmt->rowCount() < 1){
+                        $this->conn->rollBack();
+                        return false;
+                    }
                 }
                 $this->conn->commit();
                 $result = true;
@@ -102,6 +105,7 @@ class EvaluationDao implements IEvaluationDao
             }
         }
         catch (PDOException $e) {
+            $this->conn->rollBack();
             $result = "Error SQL:" . $e->getMessage();
         }
         finally{

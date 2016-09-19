@@ -16,10 +16,11 @@ if(isset( $_SESSION["login"]) && $_SESSION["login"] == "valid"){
     }else {
         $userDao = new UserDao();
         $user = new User($_POST["user"], $_POST["password"], null, null, null, null, null, null, null, null);
-        $result = $userDao->login($user);
-        if ($result) {
+        $user = $userDao->login($user);
+        if ($user != null) {
             $_SESSION["login"] = "valid";
-            $_SESSION['USER'] = $_POST["user"];
+            $_SESSION['USER'] = $_POST['user'];
+            $_SESSION['user'] = $user;
             header("Location: ../view/modules/instructor/instructor.php");
         } else {
             $_SESSION["login"] = "invalid";

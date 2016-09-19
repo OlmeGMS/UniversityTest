@@ -234,14 +234,13 @@ session_start();
 <!-- END Modal Terms -->
 
 <?php include 'inc/template_scripts_home.php'; ?>
-<?php include '/inc/message.php'; ?>
+<?php include 'inc/message.php'; ?>
 
 <!-- Load and execute javascript code used only in this page -->
 <script src="js/pages/login.js"></script>
 <script>$(function(){ Login.init(); });</script>
 <script>
     $(document).ready(function () {
-
         $('#form-register').submit(function (e) {
             $('#submitRegister').text("Enviando registro...");
             $('#submitRegister').prop("disabled",true);

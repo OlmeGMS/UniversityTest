@@ -23,10 +23,11 @@ CREATE TABLE tbl_tipopreguntas (
 ) WITHOUT OIDS;
 -- Structure for table tbl_preguntas (OID = 24593):
 CREATE TABLE tbl_preguntas (
-    eva_idPreguntasPk serial NOT NULL,
+  eva_idPreguntasPk serial NOT NULL,
 	eva_tipoPreguntaFk integer NOT NULL,
-    eva_estado boolean,
-    eva_idMateriaFk integer NOT NULL
+  eva_enunciado varchar(256) NOT NULL,
+  eva_estado boolean,
+  eva_idMateriaFk integer NOT NULL
 ) WITHOUT OIDS;
 -- Structure for table tbl_tiporespuesta (OID = 24596):
 CREATE TABLE tbl_tiporespuesta (
@@ -36,15 +37,15 @@ CREATE TABLE tbl_tiporespuesta (
 ) WITHOUT OIDS;
 -- Structure for table tbl_usuarios (OID = 24599):
 CREATE TABLE tbl_usuarios (
-    "eva_idUsuarioPk" integer NOT NULL,
+    eva_idUsuarioPk serial NOT NULL,
     eva_documento varchar(16) NOT NULL,
-    "eva_pNombre" varchar(16) NOT NULL,
-    "eva_sNombre" varchar(16) NOT NULL,
-    "eva_pApellido" varchar(16) NOT NULL,
-    "eva_sApellido" varchar(16) NOT NULL,
+    eva_pNombre varchar(16) NOT NULL,
+    eva_sNombre varchar(16) NOT NULL,
+    eva_pApellido varchar(16) NOT NULL,
+    eva_sApellido varchar(16) NOT NULL,
     eva_usuario varchar(16) NOT NULL,
     eva_password varchar(321) NOT NULL,
-    "eva_idRolFk" integer NOT NULL,
+    eva_idRolFk integer NOT NULL,
     eva_estado boolean NOT NULL,
     eva_email varchar(128) NOT NULL
 ) WITHOUT OIDS;
@@ -66,11 +67,10 @@ CREATE TABLE tbl_respuestas (
 CREATE TABLE tbl_cursos (
     eva_idCursoPk serial NOT NULL,
     eva_codigo integer NOT NULL,
-    eva_nombre varchar(64) NOT NULL,
-    eva_fechaCreacion integer NOT NULL,
+    eva_nombre varchar(128) NOT NULL,
+    eva_fechaCreacion DATE NOT NULL,
     eva_usuarioFk integer NOT NULL,
-    eva_estado boolean NOT NULL,
-    "eva_idMateriaFk" integer NOT NULL
+    eva_estado boolean NOT NULL
 ) WITHOUT OIDS;
 -- Structure for table tbl_roles (OID = 24614):
 CREATE TABLE tbl_roles (
@@ -91,7 +91,7 @@ CREATE TABLE tbl_rolpermiso (
 CREATE TABLE tbl_respuestasEvaluacion (
     eva_idRespuestasEvaluacionPk serial NOT NULL,
     eva_idAsignacionPk integer NOT NULL,
-    eva_idrespuestaPk integer NOT NULL,
+    eva_idrespuestaPk integer NOT NULL
 ) WITHOUT OIDS;
 -- Structure for table tbl_evaluaciones (OID = 24623):
 CREATE TABLE tbl_evaluaciones (
@@ -101,7 +101,8 @@ CREATE TABLE tbl_evaluaciones (
 	eva_fechaFinal date NOT NULL,
 	eva_estado boolean NOT NULL,
 	eva_idUsuarioFk integer NOT NULL,
-	eva_idMateriaFk integer NOT NULL
+	eva_idMateriaFk integer NOT NULL,
+  eva_idCursoFk integer NOT NULL
 ) WITHOUT OIDS;
 -- Structure for table tbl_asignacion (OID = 24626):
 CREATE TABLE tbl_asignacion (
@@ -115,7 +116,7 @@ CREATE TABLE tbl_asignacion (
 ) WITHOUT OIDS;
 -- Structure for table tbl_materia (OID = 24629):
 CREATE TABLE tbl_materia (
-    "eva_idMateriaPk" integer NOT NULL,
+    eva_idMateriaPk serial NOT NULL,
     eva_descripcion varchar(32) NOT NULL,
     eva_fecha date NOT NULL,
     eva_estado boolean NOT NULL

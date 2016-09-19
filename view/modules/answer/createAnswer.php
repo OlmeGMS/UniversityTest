@@ -51,6 +51,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Pregunta estado -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="respuesta">Respuesta <span class="text-danger">*</span></label>
                             <div class="col-md-6">
@@ -60,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Pregunta estado -->
                         <div class="form-group">
                             <label class="col-md-4 control-label">Estado<span class="text-danger">*</span></label>
                             <div class="col-md-6">

@@ -7,6 +7,7 @@ class Course
     private $name;
     private $dateCreation;
     private $state;
+    private $idUser;
 
 
     function __construct(){}
@@ -90,5 +91,22 @@ class Course
     {
         $this->state = $state;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * @param mixed $idUser
+     */
+    public function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
+    }
+
 }
 ?>
