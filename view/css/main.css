@@ -4070,7 +4070,7 @@ p, .table, .alert, .carousel {
     /* Nav Horizontal */
     .nav-horizontal a {
         text-align: center;
-        min-width: 130px;
+        min-width: 80px;
         padding: 12px 15px;
     }
 

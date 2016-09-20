@@ -19,7 +19,7 @@ class QuestionService {
         {
             $result = array();
             $toString = "";
-            $sql = 'SELECT eva_idpreguntaspk, eva_idmateriapk, eva_tipopreguntafk, eva_enunciado, eva_estado
+            $sql = 'SELECT eva_idpreguntaspk, eva_idmateriafk, eva_tipopreguntafk, eva_enunciado, eva_estado
 	            FROM tbl_preguntas';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();

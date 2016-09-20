@@ -23,8 +23,12 @@
                                 <a href="../question/createQuestion.php"><i class="fa fa-question"></i> Agregar Pregunta al Banco</a>
                             </li>
                             <li>
-                                <a href="../question/bankQuestion.php"><i class="fa fa-folder-open-o"></i> Banco de Preguntas</a>
-                            </li>
+                                  <a href="../question/bankQuestion.php"><i class="fa fa-folder-open-o"></i> Banco de Preguntas</a>
+                              </li>
+                              <li>
+                                  <a href="../evaluation/queryEvaluation.php"><i class="fa fa-tasks"></i> Consulta Examnes</a>
+                              </li>
+
                         </ul>
                         </div>
                         <!-- END Dashboard 2 Header -->
