@@ -1,6 +1,6 @@
-<?php include '../../inc/config.php'; ?>
-<?php include '../../inc/template_start.php'; ?>
-<?php include '../../inc/page_head.php'; ?>
+<?php include __DIR__.'/../../inc/config.php'; ?>
+<?php include __DIR__.'/../../inc/template_start.php'; ?>
+<?php include __DIR__.'/../../inc/page_head.php'; ?>
 
 <!-- Page content -->
                     <div id="page-content">
@@ -26,9 +26,14 @@
                                   <a href="../question/bankQuestion.php"><i class="fa fa-folder-open-o"></i> Banco de Preguntas</a>
                               </li>
                               <li>
-                                  <a href="../evaluation/queryEvaluation.php"><i class="fa fa-tasks"></i> Consulta Examnes</a>
+                                  <a href="../evaluation/queryEvaluation.php"><i class="fa fa-tasks"></i> Consulta Evaluaciones</a>
                               </li>
-
+                              <li>
+                                  <a href="../evaluation/queryEvaluation.php"><i class="fa fa-users"></i> Gestion de usuarios</a>
+                              </li>
+                              <li>
+                                  <a href="../evaluation/queryEvaluation.php"><i class="fa fa-clock-o"></i> Presentar evaluación</a>
+                              </li>
                         </ul>
                         </div>
                         <!-- END Dashboard 2 Header -->

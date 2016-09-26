@@ -24,61 +24,65 @@ if (!$controller->dataRequired()){
    $json = array("response" => false, "message" => "Uno o varios datos estan incorrectos");
    echo json_encode($json);
 }
-
 //Validacion de fecha y hora
-$var = $validation->validateDate($controller->getEvaluation()->getInitialDate(),$controller->getEvaluation()->getEndDate());
-if($var != false && $var > 0 ){
-    $json = array("response" => false, "message" => "La fecha inicial es mayor a la final");
-    echo json_encode($json);
-}
-$var = $validation->validateHora($controller->getEvaluation()->getInitialHora(),$controller->getEvaluation()->getEndHora());
-if($var != false && $var > 0){
-   $json = array("response" => false, "message" => "La hora inicial es mayor a la final");
-   echo json_encode($json);
-}
-$initialDate = $controller->getEvaluation()->getInitialDate() ." ". $controller->getEvaluation()->getInitialHora();
-$endDate = $controller->getEvaluation()->getEndDate() ." ". $controller->getEvaluation()->getEndHora();
-
-
-if(!isset($_POST['typeEvaluation'])){
-    $json = array("response" => false, "message" => "Se debe seleccionar un tipo de examen");
-    echo json_encode($json);
-}else{
-    if($_POST['typeEvaluation'] == 'automatic'){
-        //Tipo automatico
-        if(isset($_POST['quantityQuestions']) && $_POST['quantityQuestions'] > 0){
-            $listQuestions = $questionService->getQuestions($controller->getEvaluation()->getIdSubject(),$_POST['quantityQuestions']);
-            if(count($listQuestions) != null){
-                $user = $_SESSION['user'];
-                $controller->getEvaluation()->setIdUser($user->getId());
-                $controller->getEvaluation()->setListQuestions($listQuestions);
-                if($evaluationFacade->createEvaluation($controller->getEvaluation())){
-                    $json = array("response" => true, "message" => "La evaluación se creo correctamente");
-                    echo json_encode($json);
+$json = $controller->validateDateEvaluation();
+if ($json['response'] == true){
+    if(!isset($_POST['typeEvaluation'])){
+        $json = array("response" => false, "message" => "Se debe seleccionar un tipo de examen");
+        echo json_encode($json);
+    }else{
+        if($_POST['typeEvaluation'] == 'automatic'){
+            //Tipo automatico
+            if(isset($_POST['quantityQuestions']) && $_POST['quantityQuestions'] > 0){
+                $listQuestions = $questionService->getQuestionsRandom($controller->getEvaluation()->getIdSubject(),$_POST['quantityQuestions']);
+                if(count($listQuestions) > 0){
+                    $user = $_SESSION['user'];
+                    $controller->getEvaluation()->setIdUser($user->getId());
+                    $controller->getEvaluation()->setListQuestions($listQuestions);
+                    if($evaluationFacade->createEvaluation($controller->getEvaluation())){
+                        $json = array("response" => true, "message" => "La evaluación se creo correctamente");
+                    }
+                    else{
+                        $json = array("response" => false, "message" => "No hay suficiente preguntas para crear la evaluación");
+                    }
                 }
                 else{
-                    $json = array("response" => false, "message" => "No hay suficiente preguntas para crear la evaluación");
-                    echo json_encode($json);
+                    $json = array("response" => false, "message" => "No hay suficientes preguntas para la evaluación");
                 }
+            }else{
+                $json = array("response" => false, "message" => "Se debe indicar la cantidad de preguntas");
             }
         }else{
-            $json = array("response" => false, "message" => "Se debe indicar la cantidad de preguntas");
-            echo json_encode($json);
+            $listQuestions = array();
+            $user = $_SESSION['user'];
+            $controller->getEvaluation()->setIdUser($user->getId());
+            $list = $_POST['checkboxQuestions'];
+            foreach ($list as $item){
+                $listQuestions[] = $questionService->getQuestion($item);
+            }
+            $controller->getEvaluation()->setListQuestions($listQuestions);
+            if($evaluationFacade->createEvaluation($controller->getEvaluation())){
+                $json = array("response" => true, "message" => "La evaluación se creo correctamente");
+            }
+            else{
+                $json = array("response" => false, "message" => "No hay suficiente preguntas para crear la evaluación");
+            }
         }
-    }else{
-        //Tipo manual
-
+        echo json_encode($json);
     }
+}else{
+    echo json_encode($json);
 }
-
 
 
 class EvaluationController{
 
     private $evaluation;
+    private $validation;
 
     function __construct()
     {
+        $this->validation = new Validation();
         $this->questionService = new QuestionService();
         $this->evaluation = new Evaluation();
         $this->evaluation->setState(true);
@@ -104,6 +108,34 @@ class EvaluationController{
             }
         }
         return true;
+    }
+
+
+    /**
+     * @return json
+     */
+    function validateDateEvaluation(){
+        try{
+            $response = true;
+            $message = "";
+            $var = $this->validation->validateDate($this->evaluation->getInitialDate(),$this->evaluation->getEndDate());
+            if($var != false && $var > 0 ){
+                $message = "La fecha inicial es mayor a la final";
+                $response = false;
+            }
+            if($var == 0){
+                $var = $this->validation->validateHora($this->evaluation->getInitialHora(),$this->evaluation->getEndHora());
+                if($var != false && $var > 0){
+                    $message = "La hora inicial es mayor a la final";
+                    $response = false;
+                }
+            }
+            $json = array("response" => $response, "message" => $message);
+            return $json;
+        }catch (Exception $e){
+            $json = array("response" => false, "message" => $e->getMessage());
+            return $json;
+        }
     }
 
     /**

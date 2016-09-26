@@ -72,6 +72,7 @@ class EvaluationDao implements IEvaluationDao
 
     public function insertEvaluation(Evaluation $evaluation)
     {
+        $result = false;
         $query = "INSERT INTO tbl_evaluaciones (eva_fecharegistro,eva_fechainicial,eva_fechafinal,eva_estado,eva_idusuariofk,eva_idmateriafk,eva_idcursofk) VALUES(?,?,?,?,?,?,?)";
         try {
             $this->conn->beginTransaction();

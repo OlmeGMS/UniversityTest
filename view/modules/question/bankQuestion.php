@@ -1,7 +1,15 @@
-<?php include '../../inc/config.php'; ?>
-<?php include '../../inc/template_start.php'; ?>
-<?php include '../../inc/page_head.php'; ?>
-<?php include '../../../services/QuestionService.php' ?>;
+<?php
+/**
+ * Include generales del proyecto, son requeridos.
+ */
+    include __DIR__.'/../../inc/config.php';
+    include __DIR__.'/../../inc/template_start.php';
+    include __DIR__.'/../../inc/page_head.php';
+?>
+<?php
+    require_once __DIR__.'/../../../services/QuestionService.php';
+?>
+
 <!-- Page content -->
 <div id="page-content" xmlns="http://www.w3.org/1999/html">
     <!-- Table Responsive Header -->
@@ -38,8 +46,19 @@
                 </thead>
                 <tbody>
                 <?php
-                $options = new questionService();
-                echo $options->getQuestion();
+                    $questionService = new QuestionService();
+                    $listQuestions = $questionService->getAllQuestions();
+                    foreach ($listQuestions as $item){
+                        echo '<tr>';
+                            echo '<td>'.$item->getIdQuestion().'</td>';
+                            echo '<td>'.$item->getSentence().'</td>';
+                            echo '<td class="text-center"><div class="btn-group btn-group-xs">';
+                                echo '<a href="../answer/createAnswer.php?id='.$item->getIdQuestion().'" data-toggle="tooltip" title="Editar" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+                                echo '<a href="javascript:void(0)" data-toggle="tooltip" title="Respuestas" class="btn btn-info" onclick="Modal();"><i class="fa fa-check-square-o"></i></a>';
+                                echo '<a id="agregarRespuesta" href="javascript:void(0)" data-toggle="tooltip" title="Eliminar" class="btn btn-danger" ><i class="fa fa-times"></i></a>';
+                            echo '</div></td>';
+                        echo '</tr>';
+                    }
                 ?>
                 </tbody>
             </table>

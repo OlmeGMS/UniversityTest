@@ -1,12 +1,16 @@
 <?php
+/**
+ * Include generales del proyecto, son requeridos.
+ */
     include __DIR__.'/../../inc/config.php';
     include __DIR__.'/../../inc/template_start.php';
     include __DIR__.'/../../inc/page_head.php';
 ?>
 <?php
-    include __DIR__.'/../../../services/subjectService.php';
-    include __DIR__.'/../../../services/QuestionService.php';
-    include __DIR__.'/../../../services/CourseService.php';
+    require_once __DIR__.'/../../../services/subjectService.php';
+    require_once __DIR__.'/../../../services/QuestionService.php';
+    require_once __DIR__.'/../../../services/CourseService.php';
+    require_once __DIR__.'/../../../model/question/Question.class.php'
 ?>
 
 <!-- Page content -->
@@ -74,7 +78,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="example-daterange1">Seleccione la fecha</label>
                             <div class="col-md-6">
-                                <div class="input-group input-daterange" data-date-format="mm/dd/yyyy">
+                                <div class="input-group input-daterange" data-date-format="dd/mm/yyyy">
                                     <input type="text" id="initialDate" name="initialDate" class="form-control text-center" placeholder="Inicio" required>
                                     <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
                                     <input type="text" id="endDate" name="endDate" class="form-control text-center" placeholder="Final" required>
@@ -124,20 +128,27 @@
                             <label class="col-md-4 control-label h3"><strong>Manual</strong></label>
                             <div class="col-md-6">
                                 <span class="label label-success animation-pulse">Preguntas seleccionadas</span>
-                                <span class="label label-success animation-pulse">0</span>
+                                <span class="label label-success animation-pulse" id="alertQuestions">0</span>
                                 <div class="table-responsive">
                                     <table name="answers" id="answers" class="table table-vcenter table-striped">
                                         <thead>
                                         <tr>
                                             <th>Código</th>
                                             <th>Enunciado</th>
-                                            <th style="width: 150px;" class="text-center">Acción</th>
+                                            <th>Seleccione</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $options = new questionService();
-                                        echo $options->getQuestion();
+                                            $questions = new questionService();
+                                            $listQuestions = $questions->getAllQuestions();
+                                            foreach ($listQuestions as $item){
+                                                echo '<tr>';
+                                                echo '<td>'.$item->getIdQuestion().'</td>';
+                                                echo '<td>'.$item->getSentence().'</td>';
+                                                echo '<td class="text-center"><input class="checkboxQuestions" type="checkbox" id='.$item->getIdQuestion().' name="checkboxQuestions[]" value='.$item->getIdQuestion().'></td>';
+                                                echo '</tr>';
+                                            }
                                         ?>
                                         </tbody>
                                     </table>
@@ -180,6 +191,7 @@
             if ($("#manual").is(":checked") ) {
                 $('.manual').removeClass('hidden');
                 $('.automatic').addClass('hidden');
+                $('#quantityQuestions').removeProp('required');
             }
             if($("#automatic").is(":checked")){
                 $('.automatic').removeClass('hidden');
@@ -190,6 +202,9 @@
             $('#submit').prop("disabled",true);
             $('.manual').addClass('hidden');
             $('.automatic').addClass('hidden'); 
+        });
+        $("input[type='checkbox']").change(function() {
+            $('#alertQuestions').text($('input[name="checkboxQuestions[]"]:checked').length);
         });
     });
 </script>
@@ -209,7 +224,7 @@
                     $('#submit').removeProp("disabled");
                     $('#response-message').text(data.message);
                     $("#btn-message").trigger("click");
-                    if(data.response == 'true') {
+                    if(data.response === true) {
                         document.getElementById("form-generic").reset();
                         $('#submit').text("Registrar Cuenta");
                     }

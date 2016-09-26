@@ -12,13 +12,13 @@ class Validation
         try{
             $initialDate = explode("/", $initialDate);
             $endDate = explode("/", $endDate);
-            if (checkdate($initialDate[0], $initialDate[1], $initialDate[2])){
-                $initialDateGregorian = gregoriantojd($initialDate[0], $initialDate[1], $initialDate[2]);
+            if (checkdate($initialDate[1], $initialDate[0], $initialDate[2])){
+                $initialDateGregorian = gregoriantojd($initialDate[1], $initialDate[0], $initialDate[2]);
             }else{
                 return false;
             }
-            if(checkdate($endDate[0], $endDate[1], $endDate[2])) {
-                $endDateGregorian = gregoriantojd($endDate[0], $endDate[1], $endDate[2]);
+            if(checkdate($endDate[1], $endDate[0], $endDate[2])) {
+                $endDateGregorian = gregoriantojd($endDate[1], $endDate[0], $endDate[2]);
             }else{
                 return false;
             }

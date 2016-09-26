@@ -11,43 +11,57 @@ class QuestionService {
         $this->conn = DBConnection::connect();
     }
 
-    /**
-     * @return string
+     /**
+     * @return Array() listQuestions
      */
-    public function getQuestion() {
+    public function getAllQuestions() {
         try
         {
-            $result = array();
-            $toString = "";
+            $listQuestions = array();
+            $query = 'SELECT eva_idpreguntaspk, eva_idmateriafk, eva_tipopreguntafk, eva_enunciado, eva_estado FROM tbl_preguntas';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row){
+                $question = new Question();
+                $question->setIdQuestion($row->eva_idpreguntaspk);
+                $question->setIdSubject($row->eva_idmateriafk);
+                $question->setTypeQuestionFk($row->eva_tipopreguntafk);
+                $question->setSentence($row->eva_enunciado);
+                $question->setState($row->eva_estado);
+                $listQuestions[] = $question;
+            }
+            return $listQuestions;
+        }
+        catch (PDOException $e)
+        {
+            return 'Error al ejecutar la consulta. '.$e->getMessage();
+        }
+        finally {
+            DbConnection::disconnect();
+        }
+    }
+
+    /**
+     * @param idQuestion
+     * @return Question question
+     */
+    public function getQuestion($id){
+        try
+        {
             $sql = 'SELECT eva_idpreguntaspk, eva_idmateriafk, eva_tipopreguntafk, eva_enunciado, eva_estado
-	            FROM tbl_preguntas';
+	            FROM public.tbl_preguntas WHERE eva_idpreguntaspk = '.$id;
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
             foreach ($stmt->fetchAll(PDO::FETCH_OBJ)as$row){
                 $question = new Question();
                 $question->setIdQuestion($row->eva_idpreguntaspk);
-                $question->setIdSubject($row->eva_idmateriapk);
+                $question->setIdSubject($row->eva_idmateriafk);
                 $question->setTypeQuestionFk($row->eva_tipopreguntafk);
                 $question->setSentence($row->eva_enunciado);
                 $question->setState($row->eva_estado);
-                $result[] = $question;
             }
-            foreach ($result as $item=>$value){
-               
-                $toString .= '<tr idQuestion="'.$value->getIdQuestion().'">
-                             <td class="text-left" ><a href="javascript:void(0)" class="label label-info">'.$value->getIdQuestion().'</a></td>
-                             <td>'.$value->getSentence().'</td>
-                             <td class="text-center">
-                             <div class="btn-group btn-group-xs">
-                                <a href="../answer/createAnswer.php?id='.$value->getIdQuestion().'" data-toggle="tooltip" title="Editar" class="btn btn-default"><i class="fa fa-pencil"></i></a>
-                                <a href="javascript:void(0)" data-toggle="tooltip" title="Respuestas" class="btn btn-info" onclick="Modal();"><i class="fa fa-check-square-o"></i></a>
-                                <a id="agregarRespuesta" href="javascript:void(0)" data-toggle="tooltip" title="Eliminar" class="btn btn-danger" ><i class="fa fa-times"></i></a>
-                             </div>
-                             </td>
-                             </tr>';
-            }
-            return $toString;
+            return $question;
         }
         catch (PDOException $e)
         {
@@ -58,65 +72,15 @@ class QuestionService {
         }
     }
 
-    public function getPregunta(){
+    /**
+     * @param subject
+     * @param quantity
+     * @return Question listQuestions
+     */
+    public function getQuestionsRandom($subject, $quantity){
         try
         {
-            $result = array();
-            $toString = "";
-            $sql = 'SELECT eva_idpreguntaspk, eva_idmateriapk, eva_tipopreguntafk, eva_enunciado, eva_estado
-	            FROM public.tbl_preguntas';
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-
-            foreach ($stmt->fetchAll(PDO::FETCH_OBJ)as$row){
-                $newQuestion = new Question($row->eva_idpreguntaspk, $row->eva_idmateriapk, $row->eva_tipopreguntafk, $row->eva_enunciado, $row->eva_estado);
-                $result[] = $newQuestion;
-            }
-
-             $toString.= print $newQuestion->getSentence();
-                
-
-            return $toString;
-        }
-        catch (PDOException $e)
-        {
-            return 'Error al ejecutar la consulta. '.$e->getMessage();
-        }
-        finally {
-            DbConnection::disconnect();
-        }
-    }
-
-    public function getId(){
-        try
-        {
-            $result = array();
-            $toString = "";
-            $sql = 'SELECT eva_idpreguntaspk, eva_idmateriapk, eva_tipopreguntafk, eva_enunciado, eva_estado
-	            FROM public.tbl_preguntas';
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-
-            foreach ($stmt->fetchAll(PDO::FETCH_OBJ)as$row){
-                $newQuestion = new Question($row->eva_idpreguntaspk, $row->eva_idmateriapk, $row->eva_tipopreguntafk, $row->eva_enunciado, $row->eva_estado);
-                $result[] = $newQuestion;
-            }
-            $toString.= print $newQuestion->getIdQuestion();
-            return $toString;
-        }
-        catch (PDOException $e)
-        {
-            return 'Error al ejecutar la consulta. '.$e->getMessage();
-        }
-        finally {
-            DbConnection::disconnect();
-        }
-    }
-
-    public function getQuestions($subject, $quantity){
-        try
-        {
-            $result = array();
+            $listQuestions = array();
             $sql = "SELECT eva_idpreguntaspk, eva_tipopreguntafk, eva_estado, eva_idMateriaFk FROM tbl_preguntas WHERE eva_idMateriaFk = '".$subject."' AND eva_estado = 'true'";
             try {
                 $stmt = $this->conn->prepare($sql);
@@ -125,11 +89,15 @@ class QuestionService {
                     $question = new Question();
                     $question->setIdQuestion($row->eva_idpreguntaspk);
                     $question->setIdSubject($subject);
-                    $result[] = $question;
+                    $listQuestions[] = $question;
                 }
-                if(count($result) >= $quantity){
-                    $result = $this->chooseQuestionsRandom($result, $quantity);
-                }else{
+                if(count($listQuestions) > $quantity) {
+                    $listQuestions = $this->chooseQuestionsRandom($listQuestions, $quantity);
+                }
+                elseif (count($listQuestions) == $quantity){
+                    return $listQuestions;
+                }
+                else{
                     return null;
                 }
             } catch (PDOException $e) {
@@ -137,7 +105,7 @@ class QuestionService {
             } finally {
                 DbConnection::disconnect();
             }
-            return $result;
+            return $listQuestions;
         }
         catch (PDOException $e)
         {
@@ -148,8 +116,15 @@ class QuestionService {
         }
     }
 
+    /**
+     * @param array: Array()
+     * @param quantity
+     * @internal The array should have index in position 1
+     * @see The quantity should have less o equals at number the elements
+     * @return list: Array()
+     */
     private static function chooseQuestionsRandom($result, $quantity){
-        $newArray = array();
+        $list = array();
         $selected = array();
         //Agrega numeros aleatorios a un arreglo
         while(count($selected) < $quantity) {
@@ -161,9 +136,9 @@ class QuestionService {
         //Carga el array a devolver con valores aleatorios
         foreach ($selected as $value) {
             //$position = $selected[i];
-            $newArray[] = $result[$value];
+            $list[] = $result[$value];
         }
-        return $newArray;
+        return $list;
     }
 
 }

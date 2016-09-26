@@ -15,7 +15,7 @@ class QuestionDao implements IQuestionDao
     public function getAll(){
         
         $result = array();
-        $sql = 'SELECT eva_idpreguntaspk, eva_idmateriapk, eva_tipopreguntafk, eva_enunciado, eva_estado
+        $sql = 'SELECT eva_idpreguntaspk, eva_idmateriafk, eva_tipopreguntafk, eva_enunciado, eva_estado
 	            FROM public.tbl_preguntas';
         try {
             $stmt = $this->conn->prepare($sql);
