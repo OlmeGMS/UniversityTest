@@ -73,7 +73,7 @@ class EvaluationDao implements IEvaluationDao
     public function insertEvaluation(Evaluation $evaluation)
     {
         $result = false;
-        $query = "INSERT INTO tbl_evaluaciones (eva_fecharegistro,eva_fechainicial,eva_fechafinal,eva_estado,eva_idusuariofk,eva_idmateriafk,eva_idcursofk) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO tbl_evaluaciones (eva_fecharegistro,eva_fechainicial,eva_fechafinal,eva_estado,eva_idusuariofk,eva_idmateriafk,eva_idcursofk,eva_tipoevaluacion) VALUES(?,?,?,?,?,?,?,?)";
         try {
             $this->conn->beginTransaction();
             $stmt = $this->conn->prepare($query);
@@ -84,6 +84,7 @@ class EvaluationDao implements IEvaluationDao
             $stmt->bindParam(5, $evaluation->getIdUser(), PDO::PARAM_INT);
             $stmt->bindParam(6, $evaluation->getIdSubject(), PDO::PARAM_INT);
             $stmt->bindParam(7, $evaluation->getIdCourse(), PDO::PARAM_INT);
+            $stmt->bindParam(8, $evaluation->getType(), PDO::PARAM_INT);
             $stmt->execute();
             $idEvaluation = $this->conn->lastInsertId('tbl_evaluaciones_eva_idevaluacionpk_seq');
             if ($stmt->rowCount() > 0) {

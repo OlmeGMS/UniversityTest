@@ -15,7 +15,6 @@
 ?>
 <?php
     include __DIR__.'/../../../services/EvaluationService.php';
-
 ?>;
 <!-- Page content -->
 <div id="page-content" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
@@ -37,6 +36,14 @@
         <!-- Responsive Full Title -->
         <div class="block-title">
             <h2><strong>Examenes</strong> creados</h2>
+            <div>
+            <form name="pdf" method="get" action="../../../controller/pdfController.php" report='true' style="float: right">
+                <input type='hidden' name='report' value='true'/>
+                <button type="submit">
+                     <i class="fa fa-file-pdf-o"></i>
+                </button>
+            </form>
+            </div>
         </div>
         <!-- END Responsive Full Title -->
 
@@ -50,6 +57,7 @@
                     <th>Fecha de registro</th>
                     <th>Fecha inicial</th>
                     <th>Fecha final</th>
+                    <th>Tipo evaluación</th>
                     <th>Preguntas</th>
                 </tr>
                 </thead>
@@ -63,6 +71,7 @@
                             echo '<td>'.$item->getRegisterDate().'</td>';
                             echo '<td>'.$item->getInitialDate().'</td>';
                             echo '<td>'.$item->getEndDate().'</td>';
+                            echo '<td>'.$item->getType().'</td>';
                             echo '<td class="text-center"><div class="btn-group btn-group-xs">';
                                 echo  '<input id='.$item->getId().' type="button" class="fa fa-question btn btn-info text-left"  onclick="detail(this.id);" value="Detalle ?" ></button>';
                                 echo '</div>';
@@ -100,6 +109,7 @@ function detail(id) {
         trQuestion.removeProp('hidden');
     }
 }
+
 </script>
 
 <?php include '../../inc/template_end.php'; ?>

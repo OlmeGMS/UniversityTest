@@ -1,9 +1,7 @@
 <?php
 require_once ('../model/user/UserDao.class.php');
 require_once ('../model/user/User.class.php');
-require ('UserFacade.php');
-
-
+require __DIR__.'/UserFacade.php';
 
 $_SESSION['DIR_CONTROLLERS'] = dirname($_SERVER['PHP_SELF']);
 if(isset( $_SESSION["login"]) && $_SESSION["login"] == "valid"){

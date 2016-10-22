@@ -6,7 +6,7 @@
  * Date: 2016-08-29
  * Time: 20:09
  */
-interface EmailServices
+interface IEmailServices
 {
     public function sendEmail($mailSend, $nameSend, $subject, $messageSend);
     public function sendEmailMassive();

@@ -30,7 +30,7 @@ class EvaluationService
             $listEvaluations = array();
             $listQuestions = array();
 
-            $query = 'SELECT eva_idevaluacionpk,eva_fecharegistro,eva_fechainicial,eva_fechafinal,eva_estado,eva_idusuariofk,eva_idmateriafk,eva_idcursofk FROM tbl_evaluaciones';
+            $query = 'SELECT eva_idevaluacionpk,eva_fecharegistro,eva_fechainicial,eva_fechafinal,eva_estado,eva_idusuariofk,eva_idmateriafk,eva_idcursofk,eva_tipoevaluacion FROM tbl_evaluaciones';
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row){
@@ -43,6 +43,7 @@ class EvaluationService
                 $evaluation->setIdUser($row->eva_idusuariofk);
                 $evaluation->setIdSubject($row->eva_idmateriafk);
                 $evaluation->setIdCourse($row->eva_idcursofk);
+                $evaluation->setType($row->eva_tipoevaluacion);
                 $queryEvaQue = "SELECT eva_idevaluacionpreguntapk,eva_idevaluacionfk,eva_idpreguntasfk FROM tbl_evaluacionpregunta WHERE eva_idevaluacionfk = ".$row->eva_idevaluacionpk;
                 $stmt = $this->conn->prepare($queryEvaQue);
                 $stmt->execute();

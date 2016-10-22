@@ -12,13 +12,15 @@ require_once ('../model/user/User.class.php');
 require_once ('../model/subject/Subject.class.php');
 require_once ('../services/QuestionService.php');
 require_once ('../utils/Validation.php');
-require_once __DIR__.'/../model/user/User.class.php';
+require_once ('../model/user/User.class.php');
+require_once ('../services/EmailService.php');
 session_start();
 
 $questionService = new QuestionService();
 $evaluationFacade = new EvaluationFacade();
 $controller = new EvaluationController();
 $validation = new Validation();
+$mailService = new EmailService();
 
 if (!$controller->dataRequired()){
    $json = array("response" => false, "message" => "Uno o varios datos estan incorrectos");
@@ -40,6 +42,9 @@ if ($json['response'] == true){
                     $controller->getEvaluation()->setIdUser($user->getId());
                     $controller->getEvaluation()->setListQuestions($listQuestions);
                     if($evaluationFacade->createEvaluation($controller->getEvaluation())){
+                        if($mailService->sendEmailMassive()){
+                            $json = array("response" => true, "message" => "La evaluación se creo correctamente");
+                        }
                         $json = array("response" => true, "message" => "La evaluación se creo correctamente");
                     }
                     else{
@@ -89,9 +94,10 @@ class EvaluationController{
         isset($_POST['idCourse']) ? $this->evaluation->setIdCourse($_POST['idCourse']) : $this->evaluation->setIdCourse(null);
         isset($_POST['idSubject']) ? $this->evaluation->setIdSubject($_POST['idSubject']) :   $this->evaluation->setIdSubject(null);
         isset($_POST['initialDate']) ? $this->evaluation->setInitialDate($_POST['initialDate']) : $this->evaluation->setInitialDate(null);
-        isset($_POST['endDate']) ? $this->evaluation->setEndDate($_POST['endDate']) : $this->evaluation->setIdSubject(null);
-        isset($_POST['initialHora']) ? $this->evaluation->setInitialHora($_POST['initialHora']) : $this->evaluation->setIdSubject(null);
-        isset($_POST['endHora']) ? $this->evaluation->setEndHora($_POST['endHora']) : $this->evaluation->setIdSubject(null);
+        isset($_POST['endDate']) ? $this->evaluation->setEndDate($_POST['endDate']) : $this->evaluation->setEndDate(null);
+        isset($_POST['initialHora']) ? $this->evaluation->setInitialHora($_POST['initialHora']) : $this->evaluation->setInitialHora(null);
+        isset($_POST['endHora']) ? $this->evaluation->setEndHora($_POST['endHora']) : $this->evaluation->setEndHora(null);
+        isset($_POST['typeEvaluation']) ? $this->evaluation->setType($_POST['typeEvaluation']) : $this->evaluation->setIdSubject(null);
     }
 
     function dataRequired(){

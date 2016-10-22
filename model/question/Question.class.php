@@ -1,4 +1,5 @@
 <?php
+
 class Question
 {
     private $idQuestion;

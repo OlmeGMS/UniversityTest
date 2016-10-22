@@ -79,12 +79,12 @@ class UserDao implements IUserDao
     public function getAll()
     {
         $result = array();
-        $sql = 'SELECT eva_usuario, eva_password FROM tbl_usuarios';
+        $sql = 'SELECT eva_usuario, eva_password, eva_documento, eva_pnombre, eva_papellido, eva_email  FROM tbl_usuarios';
         try {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             foreach ($stmt->fetchAll(PDO::FETCH_OBJ) as $row) {
-                $newUser = new User($row->iduser, $row->nombres);
+                $newUser = new User($row->eva_usuario, $row->eva_password,$row->eva_documento,$row->eva_pnombre,null,$row->eva_papellido,null,null,null,$row->eva_email);
                 $result[] = $newUser;
             }
         }

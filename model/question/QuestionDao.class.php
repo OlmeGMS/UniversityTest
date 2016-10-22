@@ -2,7 +2,7 @@
 
 require_once ('Question.class.php');
 require_once ('IQuestionDao.class.php');
-require_once ('../utils/DbConnection.php');
+require_once __DIR__.'/../../utils/DbConnection.php';
 
 class QuestionDao implements IQuestionDao
 {
