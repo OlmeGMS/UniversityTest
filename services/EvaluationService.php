@@ -65,5 +65,25 @@ class EvaluationService
             DbConnection::disconnect();
         }
     }
-
+    public function evaluationConcurrent($initialDate, $endDate){
+        $query = "SELECT eva_fechainicial,eva_fechafinal FROM tbl_evaluaciones 
+            WHERE eva_fechainicial BETWEEN '$initialDate' AND '$endDate'
+            UNION
+            SELECT eva_fechainicial,eva_fechafinal FROM tbl_evaluaciones 
+            WHERE eva_fechafinal BETWEEN '$initialDate' AND '$endDate'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetchColumn(); 
+        if ($row > 0){
+            $message = "Una evaluacion esta en este intervalo";
+            $response = false;
+            $json = array("response" => $response, "message" => $message);
+            return $json;
+        }else{
+            $message = "";
+            $response = true;
+            $json = array("response" => $response, "message" => $message);
+            return $json;
+        }
+    }
 }

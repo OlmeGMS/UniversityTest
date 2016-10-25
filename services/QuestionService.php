@@ -113,7 +113,7 @@ class QuestionService {
         }
         finally {
             DbConnection::disconnect();
-        }
+        }   
     }
 
     /**

@@ -14,6 +14,8 @@ require_once ('../services/QuestionService.php');
 require_once ('../utils/Validation.php');
 require_once ('../model/user/User.class.php');
 require_once ('../services/EmailService.php');
+require_once ('../services/EvaluationService.php');
+
 session_start();
 
 $questionService = new QuestionService();
@@ -21,13 +23,15 @@ $evaluationFacade = new EvaluationFacade();
 $controller = new EvaluationController();
 $validation = new Validation();
 $mailService = new EmailService();
+$evaluationService = new EvaluationService();
 
 if (!$controller->dataRequired()){
    $json = array("response" => false, "message" => "Uno o varios datos estan incorrectos");
    echo json_encode($json);
 }
 //Validacion de fecha y hora
-$json = $controller->validateDateEvaluation();
+$json = $evaluationService->evaluationConcurrent($controller->getEvaluation()->getInitialDate(), $controller->getEvaluation()->getEndDate());
+//$json = $controller->validateDateEvaluation();
 if ($json['response'] == true){
     if(!isset($_POST['typeEvaluation'])){
         $json = array("response" => false, "message" => "Se debe seleccionar un tipo de examen");

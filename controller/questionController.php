@@ -2,7 +2,7 @@
 
 require_once ('../model/question/Question.class.php');
 require_once ('../model/question/QuestionDao.class.php');
-require_once ('../services/EmailServiceImp.php');
+require_once ('../services/EmailService.php');
 
 session_start();
 $question = new Question();
